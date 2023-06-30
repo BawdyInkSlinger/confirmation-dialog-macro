@@ -10,7 +10,8 @@ Dialog Element Macro
 
 :: Start [nobr]
 <<button "Open simple dialog">>
-    <<dialogelement "My Title" "class-a" `["class-b", "class-c"]` "class-d">>
+    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d">>
         <span>My content</span>
+        <<button "Close">><<dialogcloseelement>><</button>>
     <</dialogelement>>
 <</button>>

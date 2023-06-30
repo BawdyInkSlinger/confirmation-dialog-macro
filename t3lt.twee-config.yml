@@ -3,3 +3,5 @@ sugarcube-2:
     dialogelement:
       name: dialogelement
       container: true
+    dialogcloseelement:
+      name: dialogcloseelement

@@ -12,7 +12,7 @@ The `<<dialogelement>>` macro creates a new dialog box, with an optional title a
 **Arguments**:
 
  * **title**: (optional) A title to appear at the top of the dialog box.  If you want to omit a title but include classes, this argument can be an empty string (`''`).
- * **classList**: (optional) A list of CSS classes to add to the dialog, for styling.  The classes should be a space-separated list of quoted class names (i.e. `'class-a' 'class-b' 'class-c'`), a quoted list of space-separated class names (i.e. `'class-a class-b class-c'`), or one or more string arrays (i.e. `['class-a', 'class-b', 'class-c']`), or any combination of thereof.
+ * **classList**: (optional) A list of CSS classes to add to the dialog, for styling.  The classes should be a quoted list of space-separated class names (i.e. `'class-a class-b class-c'`).
 
 **Usage**:
 ```
@@ -35,42 +35,6 @@ The `<<dialogelement>>` macro creates a new dialog box, with an optional title a
 /% a dialog with no title or classes %/
 <<link 'Hello!'>>
 	<<dialogelement>>Greetings!<</dialogelement>>
-<</link>>
-```
-
-#### Child tag: `<<onopen>>`
-
-You can use this child tag to run code when the dialog is opened.
-
-**Usage**:
-```
-<<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' 'char-sheet stats'>>\
-		|Strength|$str|
-		|Dexterity|$dex|
-		|Wisdom|$wis|\
-	<<onopen>>
-		<<audio 'click' volume 1 play>>
-	<</dialogelement>>
-<</link>>
-```
-
-#### Child tag: `<<onclose>>`
-
-You can use this child tag to run code when the dialog is closed.
-
-**Usage**:
-```
-<<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' 'char-sheet stats'>>\
-		|Strength|$str|
-		|Dexterity|$dex|
-		|Wisdom|$wis|\
-	<<onopen>>
-		<<audio 'click' volume 1 play>>
-	<<onclose>>
-		<<audio 'close' volume 1 play>>
-	<</dialogelement>>
 <</link>>
 ```
 
