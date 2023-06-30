@@ -32,3 +32,4 @@ Macro.add("dialogcloseelement", {
     $("dialog").remove();
   },
 });
+
