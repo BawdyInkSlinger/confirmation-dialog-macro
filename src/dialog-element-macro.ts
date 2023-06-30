@@ -32,7 +32,7 @@ Macro.add("dialogelement", {
   },
 });
 
-Macro.add("dialogcloseelement", {
+Macro.add("dialogelementclose", {
   skipArgs: true,
   handler: function () {
     $<HTMLDialogElement>("dialog")[0].close(); // fire a close event

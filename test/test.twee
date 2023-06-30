@@ -23,6 +23,6 @@ Dialog Element Macro
 <<button "Open simple dialog">>
     <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d">>
         <span>My content</span>
-        <<button "Close">><<dialogcloseelement>><</button>>
+        <<button "Close">><<dialogelementclose>><</button>>
     <</dialogelement>>
 <</button>>

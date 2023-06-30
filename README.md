@@ -68,9 +68,9 @@ The `<<popup>>` macro provides a similar result to what you might get by pairing
 <</button>>
 ```
 
-### Macro: `<<dialogcloseelement>>`
+### Macro: `<<dialogelementclose>>`
 
-**Syntax**: `<<dialogcloseelement>>`
+**Syntax**: `<<dialogelementclose>>`
 
 Closes the dialog.
 
@@ -83,7 +83,7 @@ Closes the dialog.
 		|Dexterity|$dex|
 		|Wisdom|$wis|\
 	@@float:right;
-		<<button "Close">><<dialogcloseelement>><</button>>
+		<<button "Close">><<dialogelementclose>><</button>>
     @@
 	<</dialogelement>>
 <</link>>
