@@ -1,0 +1,14 @@
+:: StoryData [demo]
+{
+    "ifid": "B5ABB3A9-F23E-425F-A6A8-D0928AAD845F",
+    "format": "SugarCube",
+    "format-version": "2.33.2"
+}
+
+:: StoryTitle [demo]
+Dialog Element Macro
+
+:: Start
+<<button "Open simple dialog">>
+
+<</button>>
