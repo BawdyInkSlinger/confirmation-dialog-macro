@@ -8,7 +8,9 @@
 :: StoryTitle [demo]
 Dialog Element Macro
 
-:: Start
+:: Start [nobr]
 <<button "Open simple dialog">>
-
+    <<dialogelement "My Title" "class-a" `["class-b", "class-c"]` "class-d">>
+        <span>My content</span>
+    <</dialogelement>>
 <</button>>
