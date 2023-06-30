@@ -9,6 +9,17 @@
 Dialog Element Macro
 
 :: Start [nobr]
+<<include "Dialog Element Button">>
+
+<<button "Open Dialog API">>
+    <<script>>
+        Dialog.setup("Dialog API", "dialog-api");
+        Dialog.wiki(Story.get("Dialog Element Button").processText());
+        Dialog.open();
+    <</script>>
+<</button>>
+
+:: Dialog Element Button [nobr]
 <<button "Open simple dialog">>
     <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d">>
         <span>My content</span>
