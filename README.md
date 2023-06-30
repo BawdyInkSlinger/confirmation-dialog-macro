@@ -3,6 +3,8 @@ This sugarcube macro presents a dialog to the user. Instead of using the sugarcu
 
 This API and documentation was shamelessly stolen from https://github.com/ChapelR/custom-macros-for-sugarcube-2#dialog-api-macros
 
+---
+
 ### Macro: `<<dialogelement>>`
 
 **Syntax**: `<<dialogelement [title] [classList]>> <</dialogelement>>`
@@ -36,36 +38,6 @@ The `<<dialogelement>>` macro creates a new dialog box, with an optional title a
 <<link 'Hello!'>>
 	<<dialogelement>>Greetings!<</dialogelement>>
 <</link>>
-```
-
-### Macro: `<<popup>>`
-
-**Syntax**: `<<popup passageName [title] [classList]>>`
-
-The `<<popup>>` macro provides a similar result to what you might get by pairing a `<<dialogelement>>` macro and an `<<include>>` macro.  The macro is generally the same as `<<dialogelement>>`, but the first argument must be the name of a passage, and instead of rendering content from between tags, that passage's content will be rendered into the dialog box. This macro does not support the `<<onopen>>` and `<<onclose>>` feature; if you need it, use the `<<dialogelement>>` macro with `<<include>>`.
-
-**Arguments**:
-
- * **passageName**: The name of one of your passages.  The indicated passage's content will be rendered into the dialog box's body.
- * **title**: (optional) A title to appear at the top of the dialog box.  If you want to omit a title but include classes, this argument can be an empty string (`''`).
- * **classList**: (optional) A list of CSS classes to add to the dialog, for styling.  The classes should be a space-separated list of quoted class names (i.e. `'class-a' 'class-b' 'class-c'`), a quoted list of space-separated class names (i.e. `'class-a class-b class-c'`), or one or more string arrays (i.e. `['class-a', 'class-b', 'class-c']`), or any combination of thereof.
-
-**Usage**:
-
-```
-/% 
-	creates a link that opens a dialog box called 'Character Sheet' 
-	with the classes .char-sheet and .stats
-	and renders the content of the passage 'charsheet' into it 
-%/
-<<link 'View Character Sheet'>>
-	<<popup 'charsheet' 'Characer Sheet' 'char-sheet stats'>>
-<</link>>
-
-/% create an about button for your credits that uses the content of the 'credits-passage' passage %/
-<<button 'About'>>
-	<<popup 'credits-passage' 'Credits'>>
-<</button>>
 ```
 
 ### Macro: `<<dialogelementclose>>`
