@@ -35,6 +35,7 @@ Macro.add("dialogelement", {
 Macro.add("dialogelementclose", {
   skipArgs: true,
   handler: function () {
+    // todo: don't just close every dialog you can find, let the user pass in a selector
     $<HTMLDialogElement>("dialog")[0].close(); // fire a close event
     $("dialog").remove();
   },

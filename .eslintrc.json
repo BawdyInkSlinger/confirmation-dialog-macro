@@ -19,7 +19,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018,
-    "project": "./tsconfig.base.json"
+    "project": "./tsconfig.test.json"
   },
   "plugins": [
     "@typescript-eslint",

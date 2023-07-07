@@ -29,6 +29,9 @@ test(`it renders on top of Dialog API`, async (t: TestController): Promise<void>
   await assertOpenSimpleDialog(t);
 });
 
+//todo: click outside of both dialogs, only the dialog element disappears
+//todo: the dialog element macro comes with a built in close button
+
 async function assertOpenSimpleDialog(t: TestController) {
   await t
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
