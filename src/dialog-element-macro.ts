@@ -10,7 +10,7 @@ Macro.add("dialogelement", {
       .css({ padding: "0" /* https://stackoverflow.com/a/72916231/61624 */ })
       .on("click", function (event) {
         if (event.target === this) {
-          this.close();
+          closeDialogElement();
         }
       });
 
@@ -34,9 +34,11 @@ Macro.add("dialogelement", {
 
 Macro.add("dialogelementclose", {
   skipArgs: true,
-  handler: function () {
-    // todo: don't just close every dialog you can find, let the user pass in a selector
-    $<HTMLDialogElement>("dialog")[0].close(); // fire a close event
-    $("dialog").remove();
-  },
+  handler: closeDialogElement,
 });
+
+function closeDialogElement() {
+  // todo: don't just close every dialog you can find, let the user pass in a selector
+  $<HTMLDialogElement>("dialog")[0].close(); // fire a close event
+  $("dialog").remove();
+}

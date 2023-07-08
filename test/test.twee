@@ -11,7 +11,7 @@
 :: StoryTitle
 Dialog Element Macro
 
-:: Start [nobr]
+:: Start
 <<include "Dialog Element Button">>
 
 <<button "Open Dialog API">>

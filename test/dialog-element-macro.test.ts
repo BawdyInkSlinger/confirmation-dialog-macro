@@ -27,9 +27,18 @@ test(`it renders on top of Dialog API`, async (t: TestController): Promise<void>
     Selector("#ui-dialog-body button").withText("Open simple dialog")
   );
   await assertOpenSimpleDialog(t, 1);
+  // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
+  await t
+    .click(Selector("#ui-dialog-close"))
+    // this should close the topmost dialog because you clicked off it
+    .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
+    .notOk()
+    // but the Dialog API should remain open since the topmost dialog's overlay ate the previous click
+    .expect(Selector("#ui-dialog-close").visible)
+    .ok()
+    .click(Selector("#ui-dialog-close"));
 });
 
-//todo: you can't interact with elements outside of the modal
 //todo: click outside of both dialogs, only the dialog element disappears
 //todo: the dialog element macro comes with a built in close button
 
