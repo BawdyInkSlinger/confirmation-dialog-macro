@@ -12,21 +12,19 @@
 Dialog Element Macro
 
 :: Start
-<<include "Dialog Element Button">>
+<<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
 
 <<button "Open Dialog API">>
     <<script>>
         Dialog.setup("Dialog API", "dialog-api");
-        Dialog.wiki(Story.get("Dialog Element Button").processText());
+        Dialog.wiki(`<<button "Open simple dialog over Dialog API">><<include "Test Dialog Element">><</button>>`);
         Dialog.open();
     <</script>>
 <</button>>
 
-:: Dialog Element Button [nobr]
-<<button "Open simple dialog">>
-    <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
-        <span>My content</span>
-        <<button "Close">><<dialogelementclose>><</button>>
-    <</dialogelement>>
-<</button>>
+:: Test Dialog Element [nobr]
+<<set $dialog_number to $dialog_number + 1>>
+<<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+    <span>My content</span>
+    <<button "Close">><<dialogelementclose>><</button>>
+<</dialogelement>>

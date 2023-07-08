@@ -24,7 +24,7 @@ test(`it renders on top of Dialog API`, async (t: TestController): Promise<void>
   });
   await t.click(Selector(".passage button").withText("Open Dialog API"));
   await t.click(
-    Selector("#ui-dialog-body button").withText("Open simple dialog")
+    Selector("#ui-dialog-body button").withText("Open simple dialog over Dialog API")
   );
   await assertOpenSimpleDialog(t, 1);
   // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
