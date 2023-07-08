@@ -8,7 +8,7 @@
     "compile-sass": "echo \"compile-sass\" && sass src:dist",
     "compile-sass-then-tweego": "echo \"compile-sass-then-tweego\" && npm run compile-sass && npm run tweego",
     "watch-sass-files": "echo \"watch-sass-files\" && onchange --verbose --poll 100 --await-write-finish 3000 --kill \"src/css.scss\" -- npm run compile-sass-then-tweego",
-    "tweego": "echo \"tweego\" && tweego -o dist_test/index.html ./dist ./test/test.twee",
+    "tweego": "echo \"tweego\" && tweego -o dist_test/index.html ./dist ./test/test-fixture.twee",
     "watch-twee-files": "echo \"watch-twee-files\" && onchange --verbose --poll 100 --await-write-finish 2000 --kill \"test/*.twee\" -- npm run tweego",
     "compile-twine": "echo \"mkdir dist\" && mkdir dist 2> /dev/null || true && mkdir dist_test 2> /dev/null || true && npm run compile-sass && npm run tweego",
     "watch-typescript-files-onchange-workaround-helper": "echo \"watch-typescript-files-onchange-workaround-helper\" && npm run compile-typescript && npm run tweego",

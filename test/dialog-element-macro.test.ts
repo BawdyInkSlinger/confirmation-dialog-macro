@@ -2,7 +2,7 @@ import { Selector } from "testcafe";
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
-test(`it renders a simple dialog element`, async (t: TestController): Promise<void> => {
+test(`can create and recreate dialog element macros`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
@@ -18,7 +18,7 @@ test(`it renders a simple dialog element`, async (t: TestController): Promise<vo
   await assertOpenSimpleDialog(t, 2);
 });
 
-test(`you can stack dialog element macros`, async (t: TestController): Promise<void> => {
+test(`can create and destroy layers of dialog element macros`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
@@ -51,11 +51,11 @@ test(`you can stack dialog element macros`, async (t: TestController): Promise<v
     .notOk();
 });
 
-test(`it renders on top of Dialog API`, async (t: TestController): Promise<void> => {
+test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
-  await t.click(Selector(".passage button").withText("Open Dialog API"));
+  await t.click(Selector(".passage button").withText("Open Sugarcube Dialog API"));
   await t.click(
     Selector("#ui-dialog-body button").withText(
       "Open simple dialog over Dialog API"

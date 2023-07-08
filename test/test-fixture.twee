@@ -14,7 +14,7 @@ Dialog Element Macro
 :: Start
 <<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
 
-<<button "Open Dialog API">>
+<<button "Open Sugarcube Dialog API">>
     <<script>>
         Dialog.setup("Dialog API", "official-dialog-api");
         Dialog.wiki(`<<button "Open simple dialog over Dialog API">><<include "Test Dialog Element">><</button>>`);
