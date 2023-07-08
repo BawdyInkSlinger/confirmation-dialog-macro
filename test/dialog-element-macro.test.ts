@@ -10,7 +10,7 @@ test(`it renders a simple dialog element`, async (t: TestController): Promise<vo
 
   await assertOpenSimpleDialog(t, 1);
   await t
-    .click(Selector(".passage button").withText("Close"))
+    .click(Selector(".passage button.dialog-element-close"))
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
     .notOk();
   // it re-creates the dialog when you click the button
@@ -34,13 +34,17 @@ test(`you can stack dialog element macros`, async (t: TestController): Promise<v
     .expect(Selector(".passage .dialog-number-2").exists)
     .ok()
     // it should close the topmost only
-    .click(Selector(".dialog-number-2 button").withText("Close"))
+    .click(
+      Selector(".dialog-number-2").parent(0).find("button.dialog-element-close")
+    )
     .expect(Selector(".passage .dialog-number-1").exists)
     .ok()
     .expect(Selector(".passage .dialog-number-2").exists)
     .notOk()
     // now close the first one
-    .click(Selector(".dialog-number-1 button").withText("Close"))
+    .click(
+      Selector(".dialog-number-1").parent(0).find("button.dialog-element-close")
+    )
     .expect(Selector(".passage .dialog-number-1").exists)
     .notOk()
     .expect(Selector(".passage .dialog-number-2").exists)
@@ -73,8 +77,6 @@ test(`it renders on top of Dialog API`, async (t: TestController): Promise<void>
     .eql(0);
 });
 
-//todo: the dialog element macro comes with a built in close button
-
 async function assertOpenSimpleDialog(
   t: TestController,
   expectedDialogCount: number
@@ -83,12 +85,11 @@ async function assertOpenSimpleDialog(
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
     .eql(1)
     .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-titlebar")
-        .innerText
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
     )
     .eql("My Title")
     .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-titlebar").count
+      Selector(".passage .macro-dialogelement .dialog-element-title").count
     )
     .eql(1)
     .expect(

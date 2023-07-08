@@ -17,7 +17,20 @@ Macro.add("dialogelement", {
     const $dialogTitleBar = $(document.createElement("div")).addClass(
       "dialog-element-titlebar"
     );
-    $dialogTitleBar.append($(document.createElement("h1")).wiki(title));
+    $dialogTitleBar.append(
+      $(document.createElement("h1"))
+        .addClass("dialog-element-title")
+        .wiki(title)
+    );
+    $dialogTitleBar.append(
+      $(document.createElement("button"))
+        .addClass("dialog-element-close")
+        .text("")
+        .ariaClick(() => {
+          closeDialogElement();
+        })
+    );
+
     $dialog.append($dialogTitleBar);
 
     const $dialogBody = $(document.createElement("div"))

@@ -16,7 +16,7 @@ Dialog Element Macro
 
 <<button "Open Dialog API">>
     <<script>>
-        Dialog.setup("Dialog API", "dialog-api");
+        Dialog.setup("Dialog API", "official-dialog-api");
         Dialog.wiki(`<<button "Open simple dialog over Dialog API">><<include "Test Dialog Element">><</button>>`);
         Dialog.open();
     <</script>>
@@ -27,5 +27,4 @@ Dialog Element Macro
 <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
     <span>My content</span>
     <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
-    <<button "Close">><<dialogelementclose>><</button>>
 <</dialogelement>>
