@@ -1,11 +1,14 @@
-:: StoryData [demo]
+:: StoryData
 {
     "ifid": "B5ABB3A9-F23E-425F-A6A8-D0928AAD845F",
     "format": "SugarCube",
     "format-version": "2.33.2"
 }
 
-:: StoryTitle [demo]
+:: StoryInit
+<<set $dialog_number to 0>>
+
+:: StoryTitle
 Dialog Element Macro
 
 :: Start [nobr]
@@ -21,7 +24,8 @@ Dialog Element Macro
 
 :: Dialog Element Button [nobr]
 <<button "Open simple dialog">>
-    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d">>
+    <<set $dialog_number to $dialog_number + 1>>
+    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
         <span>My content</span>
         <<button "Close">><<dialogelementclose>><</button>>
     <</dialogelement>>
