@@ -45,4 +45,3 @@ Macro.add("dialogelement", {
     $dialog[0].showModal();
   },
 });
-
