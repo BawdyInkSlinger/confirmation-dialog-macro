@@ -54,7 +54,7 @@ function pushDialogStack($dialog: JQuery<HTMLDialogElement>) {
 function popDialogStack(): JQuery<HTMLDialogElement> {
   if (isDialogStackDefined()) {
     throw new Error(
-      `Trying to pop the Dialog Element Macro's dialog stack, but it is not defined.`
+      `Trying to pop the Dialog Element Macro's dialog stack, but it is undefined.`
     );
   }
   return State.temporary.dialog_element_macro_stack.pop();
