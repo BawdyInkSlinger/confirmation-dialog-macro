@@ -1,5 +1,5 @@
 Macro.add("dialogelement", {
-  tags: ["onopen", "onclose"],
+  tags: null,
   handler: function () {
     const content = this.payload[0].contents;
     const title = this.args.length > 0 ? this.args[0] : "";
@@ -27,6 +27,7 @@ Macro.add("dialogelement", {
     $dialog.append($dialogBody);
 
     $(`.passage`).append($dialog);
+    pushDialogStack($dialog);
 
     $dialog[0].showModal();
   },
@@ -38,7 +39,30 @@ Macro.add("dialogelementclose", {
 });
 
 function closeDialogElement() {
-  // todo: don't just close every dialog you can find, let the user pass in a selector
-  $<HTMLDialogElement>("dialog")[0].close(); // fire a close event
-  $("dialog").remove();
+  const $dialog = popDialogStack();
+  $dialog[0].close(); // fire a dialog close event
+  $dialog.remove();
+}
+
+function pushDialogStack($dialog: JQuery<HTMLDialogElement>) {
+  if (isDialogStackDefined()) {
+    State.temporary.dialog_element_macro_stack = [];
+  }
+  State.temporary.dialog_element_macro_stack.push($dialog);
+}
+
+function popDialogStack(): JQuery<HTMLDialogElement> {
+  if (isDialogStackDefined()) {
+    throw new Error(
+      `Trying to pop the Dialog Element Macro's dialog stack, but it is not defined.`
+    );
+  }
+  return State.temporary.dialog_element_macro_stack.pop();
+}
+
+function isDialogStackDefined(): boolean {
+  return (
+    State.temporary?.dialog_element_macro_stack === null ||
+    State.temporary?.dialog_element_macro_stack === undefined
+  );
 }

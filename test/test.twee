@@ -26,5 +26,6 @@ Dialog Element Macro
 <<set $dialog_number to $dialog_number + 1>>
 <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
     <span>My content</span>
+    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
     <<button "Close">><<dialogelementclose>><</button>>
 <</dialogelement>>
