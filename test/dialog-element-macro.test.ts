@@ -18,13 +18,13 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
     .eql(1)
     .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
-    .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").count
     )
     .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
@@ -43,13 +43,13 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
     .eql(1)
     .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
-    .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").count
     )
     .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-2 span`
@@ -75,13 +75,13 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
     .eql(1)
     .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
-    .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").count
     )
     .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
@@ -136,22 +136,22 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
     .eql(1)
     .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
-    .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").count
     )
     .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
       ).innerText
     )
     .eql("My content")
-  //  assertOpenSimpleDialog(t, 1) CLOSE
+    //  assertOpenSimpleDialog(t, 1) CLOSE
 
-  // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
+    // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
     .click(Selector("#ui-dialog-close"))
     // this should close the topmost dialog because you clicked off it
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
