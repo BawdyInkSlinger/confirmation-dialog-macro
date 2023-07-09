@@ -82,6 +82,8 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     .click(
       Selector(".dialog-number-1 button").withText("Open another simple dialog")
     )
+    .expect(dialogCount())
+    .eql(2)
     .expect(Selector(".passage .dialog-number-1").exists)
     .ok()
     .expect(Selector(".passage .dialog-number-2").exists)
