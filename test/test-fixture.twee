@@ -19,40 +19,52 @@ Config.passages.nobr = true;
 
 :: Test Fixtures
 <h1>Test Fixtures</h1>
-<<button "Test can create and recreate dialog element macros" "Test can create and recreate dialog element macros">><</button>>
+<<button "Test can create and recreate dialog element macros" "Test can create and recreate dialog element macros">><</button>><br><br>
 
-<<button "Test can stack multiple dialogs and close them, top to bottom" "Test can stack multiple dialogs and close them, top to bottom">><</button>>
+<<button "Test can stack multiple dialogs and close them, top to bottom" "Test can stack multiple dialogs and close them, top to bottom">><</button>><br><br>
 
-<<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>>
+<<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>><br><br>
 
 :: Test can create and recreate dialog element macros
 <h1>Test can create and recreate dialog element macros</h1>
 <<button "Open simple dialog">><<opendialogelement "My Title">>
     <span>My content</span>
-    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+    <<button "Open another simple dialog">>
+        <<include "Test Dialog Element">>
+    <</button>>
 <</opendialogelement>><</button>>
 
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
 <<button "Open simple dialog">><<opendialogelement "My Title">>
     <span>My content</span>
-    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+    <<button "Open another simple dialog">>
+        <<include "Test Dialog Element">>
+    <</button>>
 <</opendialogelement>><</button>>
 
 :: Test can open on top of official Sugarcube Dialog UI
 <h1>Test can open on top of official Sugarcube Dialog UI</h1>
 <<button "Open simple dialog">><<opendialogelement "My Title">>
     <span>My content</span>
-    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+    <<button "Open another simple dialog">>
+        <<include "Test Dialog Element">>
+    <</button>>
 <</opendialogelement>><</button>>
+
+<br><br>
 
 <<button "Open Sugarcube Dialog API">>
     <<script>>
         Dialog.setup("Dialog API", "official-dialog-api");
-        Dialog.wiki(`<<button "Open simple dialog over Dialog API">><<opendialogelement "My Title">>
-            <span>My content</span>
-            <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
-        <</opendialogelement>><</button>>`);
+        Dialog.wiki(`<<button "Open simple dialog over Dialog API">>
+            <<opendialogelement "My Title">>
+                <span>My content</span>
+                <<button "Open another simple dialog">>
+                    <<include "Test Dialog Element">>
+                <</button>>
+            <</opendialogelement>>
+        <</button>>`);
         Dialog.open();
     <</script>>
 <</button>>
