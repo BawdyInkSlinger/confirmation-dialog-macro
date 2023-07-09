@@ -69,10 +69,27 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
         "Test can stack multiple dialogs and close them, top to bottom"
       )
     )
-    .click(Selector(".passage button").withText("Open simple dialog"));
+    .click(Selector(".passage button").withText("Open simple dialog"))
 
-  await assertOpenSimpleDialog(t, 1);
-  await t
+    //  assertOpenSimpleDialog(t, 1) OPEN
+    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
+    .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").count
+    )
+    .eql(1)
+    .expect(
+      Selector(
+        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
+      ).innerText
+    )
+    .eql("My content")
+    //  assertOpenSimpleDialog(t, 1) CLOSE
+
     .click(
       Selector(".dialog-number-1 button").withText("Open another simple dialog")
     )
@@ -113,28 +130,9 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
       Selector("#ui-dialog-body button").withText(
         "Open simple dialog over Dialog API"
       )
-    );
-  await assertOpenSimpleDialog(t, 1);
-  // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
-  await t
-    .click(Selector("#ui-dialog-close"))
-    // this should close the topmost dialog because you clicked off it
-    .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
-    .notOk()
-    // but the Dialog API should remain open since the topmost dialog's overlay ate the previous click
-    .expect(Selector("#ui-dialog-close").visible)
-    .ok()
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-titlebar").count
     )
-    .eql(0);
-});
 
-async function assertOpenSimpleDialog(
-  t: TestController,
-  expectedDialogCount: number
-) {
-  await t
+    //  assertOpenSimpleDialog(t, 1) OPEN
     .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
     .eql(1)
     .expect(
@@ -147,8 +145,22 @@ async function assertOpenSimpleDialog(
     .eql(1)
     .expect(
       Selector(
-        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-${expectedDialogCount} span`
+        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
       ).innerText
     )
-    .eql("My content");
-}
+    .eql("My content")
+  //  assertOpenSimpleDialog(t, 1) CLOSE
+
+  // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
+    .click(Selector("#ui-dialog-close"))
+    // this should close the topmost dialog because you clicked off it
+    .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
+    .notOk()
+    // but the Dialog API should remain open since the topmost dialog's overlay ate the previous click
+    .expect(Selector("#ui-dialog-close").visible)
+    .ok()
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-titlebar").count
+    )
+    .eql(0);
+});
