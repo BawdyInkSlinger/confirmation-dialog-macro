@@ -14,10 +14,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     )
     .click(Selector(".passage button").withText("Open a dialog"))
     .customActions.expectDialogCountToBe(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
+    .customActions.expectDialogTitleToBe("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
@@ -34,10 +31,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
 
     //  assertOpenSimpleDialog(t, 2) OPEN
     .customActions.expectDialogCountToBe(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
+    .customActions.expectDialogTitleToBe("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-2 span`
@@ -61,10 +55,7 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
 
     //  assertOpenSimpleDialog(t, 1) OPEN
     .customActions.expectDialogCountToBe(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
+    .customActions.expectDialogTitleToBe("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
@@ -117,10 +108,7 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
 
     //  assertOpenSimpleDialog(t, 1) OPEN
     .customActions.expectDialogCountToBe(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
-    .eql("My Title")
+    .customActions.expectDialogTitleToBe("My Title")
     .expect(
       Selector(
         `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`

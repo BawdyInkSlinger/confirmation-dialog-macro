@@ -26,6 +26,12 @@ module.exports = {
                     Selector(".passage .macro-dialogelement .dialog-element-title").count
                 )
                 .eql(dialogCount);
-        }
+        },
+        async expectDialogTitleToBe(dialogTitle) {
+            await this.expect(
+                Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+            )
+                .eql(dialogTitle)
+        },
     }
 }
