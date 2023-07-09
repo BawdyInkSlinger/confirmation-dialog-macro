@@ -5,17 +5,20 @@
     "format-version": "2.33.2"
 }
 
+:: StoryTitle
+Dialog Element Macro
+
 :: StoryInit
 <<set $dialog_number to 0>>
 
-:: StoryTitle
-Dialog Element Macro
+:: Script [script]
+Config.passages.nobr = true;
 
 :: Start
 <<include "Test Fixtures">>
 
 :: Test Fixtures
-! Test Fixtures
+<h1>Test Fixtures</h1>
 <<button "Test can create and recreate dialog element macros" "Test can create and recreate dialog element macros">><</button>>
 
 <<button "Test can stack multiple dialogs and close them, top to bottom" "Test can stack multiple dialogs and close them, top to bottom">><</button>>
@@ -23,28 +26,49 @@ Dialog Element Macro
 <<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>>
 
 :: Test can create and recreate dialog element macros
-! Test can create and recreate dialog element macros
-<<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
+<h1>Test can create and recreate dialog element macros</h1>
+<<button "Open simple dialog">><<opendialogelement "My Title">>
+    <span>My content</span>
+    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+<</opendialogelement>><</button>>
 
 :: Test can stack multiple dialogs and close them, top to bottom
-! Test can stack multiple dialogs and close them, top to bottom
-<<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
+<h1>Test can stack multiple dialogs and close them, top to bottom</h1>
+<<button "Open simple dialog">><<opendialogelement "My Title">>
+    <span>My content</span>
+    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+<</opendialogelement>><</button>>
 
 :: Test can open on top of official Sugarcube Dialog UI
-! Test can open on top of official Sugarcube Dialog UI
-<<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
+<h1>Test can open on top of official Sugarcube Dialog UI</h1>
+<<button "Open simple dialog">><<opendialogelement "My Title">>
+    <span>My content</span>
+    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+<</opendialogelement>><</button>>
 
 <<button "Open Sugarcube Dialog API">>
     <<script>>
         Dialog.setup("Dialog API", "official-dialog-api");
-        Dialog.wiki(`<<button "Open simple dialog over Dialog API">><<include "Test Dialog Element">><</button>>`);
+        Dialog.wiki(`<<button "Open simple dialog over Dialog API">><<opendialogelement "My Title">>
+            <span>My content</span>
+            <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
+        <</opendialogelement>><</button>>`);
         Dialog.open();
     <</script>>
 <</button>>
 
-:: Test Dialog Element [nobr]
+:: Test Dialog Element
 <<set $dialog_number to $dialog_number + 1>>
 <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
     <span>My content</span>
     <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
 <</dialogelement>>
+
+:: Open Dialog Element Widget [widget]
+<<widget opendialogelement container>>
+    <<set _title to _args[0]>>
+    <<set $dialog_number to $dialog_number + 1>>
+    <<dialogelement _title "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+        _contents
+    <</dialogelement>>
+<</widget>>

@@ -5,3 +5,8 @@ sugarcube-2:
       container: true
     dialogelementclose:
       name: dialogelementclose
+    opendialogelement:
+      name: opendialogelement
+      container: true
+      parameters: 
+      - "text"
