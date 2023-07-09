@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { dialogCount } from "./dialog-element-matchers";
+import { dialogCount, dialogTitle } from "./dialog-element-matchers";
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
@@ -18,9 +18,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     //  assertOpenSimpleDialog(t, 1) OPEN
     .expect(dialogCount())
     .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
+    .expect(dialogTitle())
     .eql("My Title")
     .expect(
       Selector(
@@ -39,9 +37,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     //  assertOpenSimpleDialog(t, 2) OPEN
     .expect(dialogCount())
     .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
+    .expect(dialogTitle())
     .eql("My Title")
     .expect(
       Selector(
@@ -67,9 +63,7 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     //  assertOpenSimpleDialog(t, 1) OPEN
     .expect(dialogCount())
     .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
+    .expect(dialogTitle())
     .eql("My Title")
     .expect(
       Selector(
@@ -126,9 +120,7 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     //  assertOpenSimpleDialog(t, 1) OPEN
     .expect(dialogCount())
     .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
-    )
+    .expect(dialogTitle())
     .eql("My Title")
     .expect(
       Selector(
