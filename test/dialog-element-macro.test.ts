@@ -6,7 +6,13 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
-  await t.click(Selector(".passage button").withText("Open simple dialog"));
+  await t
+    .click(
+      Selector(".passage button").withText(
+        "Test can create and recreate dialog element macros"
+      )
+    )
+    .click(Selector(".passage button").withText("Open simple dialog"));
 
   await assertOpenSimpleDialog(t, 1);
   await t
@@ -18,11 +24,17 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
   await assertOpenSimpleDialog(t, 2);
 });
 
-test(`can create and destroy layers of dialog element macros`, async (t: TestController): Promise<void> => {
+test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
-  await t.click(Selector(".passage button").withText("Open simple dialog"));
+  await t
+    .click(
+      Selector(".passage button").withText(
+        "Test can stack multiple dialogs and close them, top to bottom"
+      )
+    )
+    .click(Selector(".passage button").withText("Open simple dialog"));
 
   await assertOpenSimpleDialog(t, 1);
   await t
@@ -55,12 +67,18 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
-  await t.click(Selector(".passage button").withText("Open Sugarcube Dialog API"));
-  await t.click(
-    Selector("#ui-dialog-body button").withText(
-      "Open simple dialog over Dialog API"
+  await t
+    .click(
+      Selector(".passage button").withText(
+        "Test can open on top of official Sugarcube Dialog UI"
+      )
     )
-  );
+    .click(Selector(".passage button").withText("Open Sugarcube Dialog API"))
+    .click(
+      Selector("#ui-dialog-body button").withText(
+        "Open simple dialog over Dialog API"
+      )
+    );
   await assertOpenSimpleDialog(t, 1);
   // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
   await t

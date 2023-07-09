@@ -12,6 +12,26 @@
 Dialog Element Macro
 
 :: Start
+<<include "Test Fixtures">>
+
+:: Test Fixtures
+! Test Fixtures
+<<button "Test can create and recreate dialog element macros" "Test can create and recreate dialog element macros">><</button>>
+
+<<button "Test can stack multiple dialogs and close them, top to bottom" "Test can stack multiple dialogs and close them, top to bottom">><</button>>
+
+<<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>>
+
+:: Test can create and recreate dialog element macros
+! Test can create and recreate dialog element macros
+<<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
+
+:: Test can stack multiple dialogs and close them, top to bottom
+! Test can stack multiple dialogs and close them, top to bottom
+<<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
+
+:: Test can open on top of official Sugarcube Dialog UI
+! Test can open on top of official Sugarcube Dialog UI
 <<button "Open simple dialog">><<include "Test Dialog Element">><</button>>
 
 <<button "Open Sugarcube Dialog API">>
