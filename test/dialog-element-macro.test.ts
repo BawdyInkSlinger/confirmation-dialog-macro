@@ -1,4 +1,5 @@
 import { Selector } from "testcafe";
+import { dialogCount } from "./dialog-element-matchers";
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
@@ -15,11 +16,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .click(Selector(".passage button").withText("Open a dialog"))
 
     //  assertOpenSimpleDialog(t, 1) OPEN
-    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
-    .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").count
-    )
+    .expect(dialogCount())
     .eql(1)
     .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").innerText
@@ -40,11 +37,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .click(Selector(".passage button").withText("Open a dialog"))
 
     //  assertOpenSimpleDialog(t, 2) OPEN
-    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
-    .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").count
-    )
+    .expect(dialogCount())
     .eql(1)
     .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").innerText
@@ -72,11 +65,7 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     .click(Selector(".passage button").withText("Open simple dialog"))
 
     //  assertOpenSimpleDialog(t, 1) OPEN
-    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
-    .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").count
-    )
+    .expect(dialogCount())
     .eql(1)
     .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").innerText
@@ -133,11 +122,7 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     )
 
     //  assertOpenSimpleDialog(t, 1) OPEN
-    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
-    .eql(1)
-    .expect(
-      Selector(".passage .macro-dialogelement .dialog-element-title").count
-    )
+    .expect(dialogCount())
     .eql(1)
     .expect(
       Selector(".passage .macro-dialogelement .dialog-element-title").innerText
