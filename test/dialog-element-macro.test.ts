@@ -12,16 +12,51 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
         "Test can create and recreate dialog element macros"
       )
     )
-    .click(Selector(".passage button").withText("Open simple dialog"));
+    .click(Selector(".passage button").withText("Open a dialog"))
 
-  await assertOpenSimpleDialog(t, 1);
-  await t
+    //  assertOpenSimpleDialog(t, 1) OPEN
+    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
+    .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").count
+    )
+    .eql(1)
+    .expect(
+      Selector(
+        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
+      ).innerText
+    )
+    .eql("My content")
+    //  assertOpenSimpleDialog(t, 1) CLOSE
+
     .click(Selector(".passage button.dialog-element-close"))
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
-    .notOk();
-  // it re-creates the dialog when you click the button
-  await t.click(Selector(".passage button").withText("Open simple dialog"));
-  await assertOpenSimpleDialog(t, 2);
+    .notOk()
+    // it re-creates the dialog when you click the button
+    .click(Selector(".passage button").withText("Open a dialog"))
+
+    //  assertOpenSimpleDialog(t, 2) OPEN
+    .expect(Selector(".passage .macro-dialogelement.dialog-element").count)
+    .eql(1)
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").innerText
+    )
+    .eql("My Title")
+    .expect(
+      Selector(".passage .macro-dialogelement .dialog-element-title").count
+    )
+    .eql(1)
+    .expect(
+      Selector(
+        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-2 span`
+      ).innerText
+    )
+    .eql("My content");
+  //  assertOpenSimpleDialog(t, 2) CLOSE
 });
 
 test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestController): Promise<void> => {

@@ -27,30 +27,36 @@ Config.passages.nobr = true;
 
 :: Test can create and recreate dialog element macros
 <h1>Test can create and recreate dialog element macros</h1>
-<<button "Open simple dialog">><<opendialogelement "My Title">>
-    <span>My content</span>
-    <<button "Open another simple dialog">>
-        <<include "Test Dialog Element">>
-    <</button>>
-<</opendialogelement>><</button>>
+<<button "Open a dialog">>
+    <<opendialogelement "My Title">>
+        <span>My content</span>
+        <<button "Open another simple dialog">>
+            <<include "Test Dialog Element">>
+        <</button>>
+    <</opendialogelement>>
+<</button>>
 
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
-<<button "Open simple dialog">><<opendialogelement "My Title">>
-    <span>My content</span>
-    <<button "Open another simple dialog">>
-        <<include "Test Dialog Element">>
-    <</button>>
-<</opendialogelement>><</button>>
+<<button "Open simple dialog">>
+    <<opendialogelement "My Title">>
+        <span>My content</span>
+        <<button "Open another simple dialog">>
+            <<include "Test Dialog Element">>
+        <</button>>
+    <</opendialogelement>>
+<</button>>
 
 :: Test can open on top of official Sugarcube Dialog UI
 <h1>Test can open on top of official Sugarcube Dialog UI</h1>
-<<button "Open simple dialog">><<opendialogelement "My Title">>
-    <span>My content</span>
-    <<button "Open another simple dialog">>
-        <<include "Test Dialog Element">>
-    <</button>>
-<</opendialogelement>><</button>>
+<<button "Open simple dialog">>
+    <<opendialogelement "My Title">>
+        <span>My content</span>
+        <<button "Open another simple dialog">>
+            <<include "Test Dialog Element">>
+        <</button>>
+    <</opendialogelement>>
+<</button>>
 
 <br><br>
 
