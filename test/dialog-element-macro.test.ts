@@ -1,9 +1,6 @@
 import { Selector, t } from "testcafe";
 import {
-  customClassNames,
-  dialogBodyText,
   dialogElementCount,
-  dialogTitle,
   expectDialogElement,
 } from "./dialog-element-testcafe-utils";
 
@@ -69,18 +66,20 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
-    exactTitle: "My Title",
-    bodyText: "My content",
-    customClassNames: [
-      "dialog-number-1",
-    ],
+    exactTitle: "First Title",
+    customClassNames: ["dialog-number-1"],
   });
   await t
     .click(
       Selector(".dialog-number-1 button").withText("Open another simple dialog")
     )
     .expect(dialogElementCount())
-    .eql(2)
+    .eql(2);
+  await expectDialogElement({
+    exactTitle: "Second Title",
+    customClassNames: ["dialog-number-2"],
+  });
+  await t
     .expect(Selector(".passage .dialog-number-1").exists)
     .ok()
     .expect(Selector(".passage .dialog-number-2").exists)
@@ -120,11 +119,9 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
       )
     );
   await expectDialogElement({
-    exactTitle: "My Title",
+    exactTitle: "On top of sugarcube",
     bodyText: "My content",
-    customClassNames: [
-      "dialog-number-1",
-    ],
+    customClassNames: ["dialog-number-1"],
   });
   // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
   await t

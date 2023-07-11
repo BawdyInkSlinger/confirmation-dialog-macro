@@ -1,3 +1,7 @@
 {
-    "twee3LanguageTools.storyformat.current": "sugarcube-2"
+    "twee3LanguageTools.storyformat.current": "sugarcube-2",
+    "prettier.singleQuote": true,
+    "editor.tabSize": 2,
+    "prettier.jsxSingleQuote": true,
+    "prettier.quoteProps": "preserve",
 }

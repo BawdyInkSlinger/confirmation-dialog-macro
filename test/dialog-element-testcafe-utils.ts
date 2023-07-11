@@ -4,19 +4,31 @@ export function dialogElementCount(): Promise<number> {
   return Selector("dialog").count;
 }
 
-export function dialogTitle(): Promise<string> {
-  return Selector(".passage .macro-dialogelement .dialog-element-title")
-    .innerText;
+function dialogTitleSelector(
+  dialogElementBodySelector = Selector(
+    ".passage .macro-dialogelement .dialog-element-body"
+  )
+): Promise<string> {
+  const dialogTitleSelector = dialogElementBodySelector
+    .parent("dialog")
+    .find(".dialog-element-title");
+  return dialogTitleSelector.innerText;
 }
 
-export function dialogBodyText(): Promise<string> {
-  return Selector(".passage .macro-dialogelement .dialog-element-body")
-    .innerText;
+function dialogBodyTextSelector(
+  dialogElementBodySelector = Selector(
+    ".passage .macro-dialogelement .dialog-element-body"
+  )
+): Promise<string> {
+  return dialogElementBodySelector.innerText;
 }
 
-export function customClassNames(): Promise<string[]> {
-  return Selector(".passage .macro-dialogelement .dialog-element-body")
-    .classNames;
+function customClassNamesSelector(
+  dialogElementBodySelector = Selector(
+    ".passage .macro-dialogelement .dialog-element-body"
+  )
+): Promise<string[]> {
+  return dialogElementBodySelector.classNames;
 }
 
 type AssertDialogElementOptions = Partial<{
@@ -25,19 +37,34 @@ type AssertDialogElementOptions = Partial<{
   customClassNames: string[];
 }>;
 
-export async function expectDialogElement(
-  options: AssertDialogElementOptions = {}
-): Promise<void> {
-  options.exactTitle !== undefined &&
-    (await t.expect(dialogTitle()).eql(options.exactTitle));
+export async function expectDialogElement({
+  exactTitle,
+  bodyText,
+  customClassNames,
+}: AssertDialogElementOptions = {}): Promise<void> {
+  const dialogElementBodyClasses = new Set<string>(customClassNames);
+  dialogElementBodyClasses.add(`dialog-element-body`);
 
-  options.bodyText !== undefined &&
-    (await t.expect(dialogBodyText()).contains(options.bodyText));
+  const classesInCssSelectorFormat =
+    "." + [...dialogElementBodyClasses].join(".");
 
-  options.customClassNames !== undefined &&
+  const dialogElementBodySelector = Selector(
+    `.passage .macro-dialogelement ${classesInCssSelectorFormat}`
+  );
+
+  exactTitle !== undefined &&
+    (await t
+      .expect(dialogTitleSelector(dialogElementBodySelector))
+      .eql(exactTitle));
+
+  bodyText !== undefined &&
+    (await t
+      .expect(dialogBodyTextSelector(dialogElementBodySelector))
+      .contains(bodyText));
+
+  customClassNames !== undefined &&
     (await t.customActions.expectContainsSubset(
-      customClassNames(),
-      options.customClassNames
+      customClassNamesSelector(dialogElementBodySelector),
+      customClassNames
     ));
-
 }
