@@ -48,7 +48,7 @@ Config.passages.nobr = true;
                       <<button "Open Dialog 4">>
                           <<set $dialog_number to $dialog_number + 1>>
                           <<dialogelement "Dialog 4" `"dialog-number-" + $dialog_number`>>
-
+                            <<button "Custom close button">><<dialogelementclose>><</button>>
                           <</dialogelement>>
                       <</button>>
                   <</dialogelement>>

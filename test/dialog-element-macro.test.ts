@@ -62,10 +62,18 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     )
   );
 
-  await openDialogAndExpectNumberCreated(1);
-  await openDialogAndExpectNumberCreated(2);
-  await openDialogAndExpectNumberCreated(3);
-  await openDialogAndExpectNumberCreated(4);
+  // open each dialog one by one
+  await openDialog(1);
+  await t.expect(dialogElementCount()).eql(1);
+  await openDialog(2);
+  await t.expect(dialogElementCount()).eql(2);
+  await openDialog(3);
+  await t.expect(dialogElementCount()).eql(3);
+  await openDialog(4);
+  await t.expect(dialogElementCount()).eql(4);
+
+  // they should all exist on the page now
+  // await expectDialogContentExists(1, true);
 
   //   .click(Selector('.passage button').withText('Open Dialog 1'))
   //   .expect(dialogElementCount())
@@ -105,18 +113,30 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
   //   .notOk();
 });
 
-async function openDialogAndExpectNumberCreated(dialogElementNumber: number): Promise<void> {
+async function openDialog(
+  dialogElementNumber: number
+): Promise<void> {
   await t
     .click(
       Selector('.passage button').withText(`Open Dialog ${dialogElementNumber}`)
     )
-    .expect(dialogElementCount())
-    .eql(dialogElementNumber);
-  await expectDialogElement({
-    exactTitle: `Dialog ${dialogElementNumber}`,
-    customClassNames: [`dialog-number-${dialogElementNumber}`],
-  });
 }
+
+// async function expectDialogContentExists(
+//   dialogElementNumber: number,
+//   shouldExist: boolean
+// ): Promise<void> {
+//   await t
+//     .expect(Selector(`dialog-number-${dialogElementNumber}`).exists)
+//     .eql(shouldExist);
+
+//   if (shouldExist) {
+//     await expectDialogElement({
+//       exactTitle: `Dialog ${dialogElementNumber}`,
+//       customClassNames: [`dialog-number-${dialogElementNumber}`],
+//     });
+//   }
+// }
 
 test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {

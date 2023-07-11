@@ -4,7 +4,7 @@ export function dialogElementCount(): Promise<number> {
   return Selector('dialog').count;
 }
 
-type AssertDialogElementOptions = Partial<{
+type ExpectDialogElementContent = Partial<{
   exactTitle: string;
   bodyText: string;
   customClassNames: string[];
@@ -14,7 +14,7 @@ export async function expectDialogElement({
   exactTitle,
   bodyText,
   customClassNames,
-}: AssertDialogElementOptions = {}): Promise<void> {
+}: ExpectDialogElementContent = {}): Promise<void> {
   const dialogElementBodyClasses = new Set<string>(customClassNames);
   dialogElementBodyClasses.add(`dialog-element-body`);
 
