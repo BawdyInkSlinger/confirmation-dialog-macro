@@ -38,11 +38,11 @@ Config.passages.nobr = true;
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
 <<button "Open simple dialog">>
     <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+    <<dialogelement "My Title" `"dialog-number-" + $dialog_number`>>
         <span>My content</span>
         <<button "Open another simple dialog">>
             <<set $dialog_number to $dialog_number + 1>>
-            <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+            <<dialogelement "My Title" `"dialog-number-" + $dialog_number`>>
                 <span>My content</span>
             <</dialogelement>>
         <</button>>
@@ -62,7 +62,7 @@ Config.passages.nobr = true;
 :: Sugarcube Dialog Body
 <<button "Open simple dialog over Dialog API">>
     <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+    <<dialogelement "My Title" `"dialog-number-" + $dialog_number`>>
         <span>My content</span>
     <</dialogelement>>
 <</button>>

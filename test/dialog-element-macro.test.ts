@@ -73,10 +73,6 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     bodyText: "My content",
     customClassNames: [
       "dialog-number-1",
-      "class-a",
-      "class-b",
-      "class-c",
-      "class-d",
     ],
   });
   await t
@@ -128,10 +124,6 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     bodyText: "My content",
     customClassNames: [
       "dialog-number-1",
-      "class-a",
-      "class-b",
-      "class-c",
-      "class-d",
     ],
   });
   // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
