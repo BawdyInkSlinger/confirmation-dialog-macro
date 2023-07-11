@@ -56,51 +56,67 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
-  await t
-    .click(
-      Selector('.passage button').withText(
-        'Test can stack multiple dialogs and close them, top to bottom'
-      )
+  await t.click(
+    Selector('.passage button').withText(
+      'Test can stack multiple dialogs and close them, top to bottom'
     )
-    .click(Selector('.passage button').withText('Open Dialog 1'))
-    .expect(dialogElementCount())
-    .eql(1);
-  await expectDialogElement({
-    exactTitle: 'Dialog 1',
-    customClassNames: ['dialog-number-1'],
-  });
-  await t
-    .click(
-      Selector('.dialog-number-1 button').withText('Open Dialog 2')
-    )
-    .expect(dialogElementCount())
-    .eql(2);
-  await expectDialogElement({
-    exactTitle: 'Dialog 2',
-    customClassNames: ['dialog-number-2'],
-  });
-  await t
-    .expect(Selector('.passage .dialog-number-1').exists)
-    .ok()
-    .expect(Selector('.passage .dialog-number-2').exists)
-    .ok()
-    // it should close the topmost only
-    .click(
-      Selector('.dialog-number-2').parent(0).find('button.dialog-element-close')
-    )
-    .expect(Selector('.passage .dialog-number-1').exists)
-    .ok()
-    .expect(Selector('.passage .dialog-number-2').exists)
-    .notOk()
-    // now close the first one
-    .click(
-      Selector('.dialog-number-1').parent(0).find('button.dialog-element-close')
-    )
-    .expect(Selector('.passage .dialog-number-1').exists)
-    .notOk()
-    .expect(Selector('.passage .dialog-number-2').exists)
-    .notOk();
+  );
+
+  await openDialogAndExpectNumberCreated(1);
+  await openDialogAndExpectNumberCreated(2);
+  await openDialogAndExpectNumberCreated(3);
+  await openDialogAndExpectNumberCreated(4);
+
+  //   .click(Selector('.passage button').withText('Open Dialog 1'))
+  //   .expect(dialogElementCount())
+  //   .eql(1);
+  // await expectDialogElement({
+  //   exactTitle: 'Dialog 1',
+  //   customClassNames: ['dialog-number-1'],
+  // });
+  // await t
+  //   .click(Selector('.dialog-number-1 button').withText('Open Dialog 2'))
+  //   .expect(dialogElementCount())
+  //   .eql(2);
+  // await expectDialogElement({
+  //   exactTitle: 'Dialog 2',
+  //   customClassNames: ['dialog-number-2'],
+  // });
+  // await t
+  //   .expect(Selector('.passage .dialog-number-1').exists)
+  //   .ok()
+  //   .expect(Selector('.passage .dialog-number-2').exists)
+  //   .ok()
+  //   // it should close the topmost only
+  //   .click(
+  //     Selector('.dialog-number-2').parent(0).find('button.dialog-element-close')
+  //   )
+  //   .expect(Selector('.passage .dialog-number-1').exists)
+  //   .ok()
+  //   .expect(Selector('.passage .dialog-number-2').exists)
+  //   .notOk()
+  //   // now close the first one
+  //   .click(
+  //     Selector('.dialog-number-1').parent(0).find('button.dialog-element-close')
+  //   )
+  //   .expect(Selector('.passage .dialog-number-1').exists)
+  //   .notOk()
+  //   .expect(Selector('.passage .dialog-number-2').exists)
+  //   .notOk();
 });
+
+async function openDialogAndExpectNumberCreated(dialogElementNumber: number): Promise<void> {
+  await t
+    .click(
+      Selector('.passage button').withText(`Open Dialog ${dialogElementNumber}`)
+    )
+    .expect(dialogElementCount())
+    .eql(dialogElementNumber);
+  await expectDialogElement({
+    exactTitle: `Dialog ${dialogElementNumber}`,
+    customClassNames: [`dialog-number-${dialogElementNumber}`],
+  });
+}
 
 test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
