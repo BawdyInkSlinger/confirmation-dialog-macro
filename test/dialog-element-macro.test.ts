@@ -2,7 +2,7 @@ import { Selector, t } from "testcafe";
 import {
   customClassNames,
   dialogBodyText,
-  dialogCount,
+  dialogElementCount,
   dialogTitle,
   expectDialogElement,
 } from "./dialog-element-testcafe-utils";
@@ -21,7 +21,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
       )
     )
     .click(Selector(".passage button").withText("Open a dialog"))
-    .expect(dialogCount())
+    .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
     exactTitle: "My Title",
@@ -40,7 +40,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .notOk()
     // it re-creates the dialog when you click the button
     .click(Selector(".passage button").withText("Open a dialog"))
-    .expect(dialogCount())
+    .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
     exactTitle: "My Title",
@@ -66,7 +66,7 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
       )
     )
     .click(Selector(".passage button").withText("Open simple dialog"))
-    .expect(dialogCount())
+    .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
     exactTitle: "My Title",
@@ -83,7 +83,7 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     .click(
       Selector(".dialog-number-1 button").withText("Open another simple dialog")
     )
-    .expect(dialogCount())
+    .expect(dialogElementCount())
     .eql(2)
     .expect(Selector(".passage .dialog-number-1").exists)
     .ok()

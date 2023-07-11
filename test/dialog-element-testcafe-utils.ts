@@ -1,6 +1,6 @@
 import { t, Selector } from "testcafe";
 
-export function dialogCount(): Promise<number> {
+export function dialogElementCount(): Promise<number> {
   return Selector("dialog").count;
 }
 
