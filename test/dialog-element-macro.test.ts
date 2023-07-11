@@ -5,7 +5,7 @@ import {
   dialogCount,
   dialogTitle,
   expectDialogElement,
-} from "./dialog-element-matchers";
+} from "./dialog-element-testcafe-utils";
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
@@ -23,18 +23,19 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .click(Selector(".passage button").withText("Open a dialog"))
     .expect(dialogCount())
     .eql(1);
-    await expectDialogElement({
-      exactTitle: "My Title",
-      bodyText: "My content",
-      customClassNames: [
-        "dialog-number-1",
-        "class-a",
-        "class-b",
-        "class-c",
-        "class-d",
-      ],
-    })
-    await t.click(Selector(".passage button.dialog-element-close"))
+  await expectDialogElement({
+    exactTitle: "My Title",
+    bodyText: "My content",
+    customClassNames: [
+      "dialog-number-1",
+      "class-a",
+      "class-b",
+      "class-c",
+      "class-d",
+    ],
+  });
+  await t
+    .click(Selector(".passage button.dialog-element-close"))
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
     .notOk()
     // it re-creates the dialog when you click the button
