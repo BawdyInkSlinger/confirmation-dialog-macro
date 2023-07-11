@@ -3,8 +3,8 @@ Macro.add('dialogelement', {
   handler: function () {
     const content = this.payload[0].contents;
     const title = this.args.length > 0 ? this.args[0] : '';
-    const classes = this.args.length > 1 ? this.args.slice(1).flatten() : [];
-
+    const classes = this.args.length > 1 ?  this.args.slice(1).flat() : [];
+    
     const $dialog = $(document.createElement('dialog'))
       .addClass(`macro-${this.name} dialog-element`)
       .css({ padding: '0' /* https://stackoverflow.com/a/72916231/61624 */ })
@@ -30,7 +30,6 @@ Macro.add('dialogelement', {
           closeDialogElement();
         })
     );
-
     $dialog.append($dialogTitleBar);
 
     const $dialogBody = $(document.createElement('div'))
@@ -40,8 +39,8 @@ Macro.add('dialogelement', {
     $dialog.append($dialogBody);
 
     $(`.passage`).append($dialog);
-    pushDialogStack($dialog);
 
+    pushDialogStack($dialog);
     $dialog[0].showModal();
   },
 });

@@ -17,54 +17,58 @@ export async function expectDialogElement({
   customClassNames,
   exists,
 }: ExpectDialogElementContent = {}): Promise<void> {
+  const bodySelector = dialogElementBodySelector(customClassNames);
+
+  if (exists === true || exists === undefined) {
+    exactTitle !== undefined &&
+      (await t.expect(findDialogTitle(bodySelector)).eql(exactTitle));
+
+    bodyText !== undefined &&
+      (await t.expect(findDialogBodyText(bodySelector)).contains(bodyText));
+
+    customClassNames !== undefined &&
+      (await t.customActions.expectContainsSubset(
+        findDialogElementBodyClassNames(bodySelector),
+        customClassNames
+      ));
+  } else {
+    await t.expect(bodySelector.exists).notOk();
+  }
+}
+
+function dialogElementBodySelector(customClassNames?: string[]) {
   const dialogElementBodyClasses = new Set<string>(customClassNames);
   dialogElementBodyClasses.add(`dialog-element-body`);
 
   const classesInCssSelectorFormat =
     '.' + [...dialogElementBodyClasses].join('.');
 
-  const dialogElementBodySelector = Selector(
+  return Selector(
     `.passage .macro-dialogelement ${classesInCssSelectorFormat}`
   );
-
-  if (exists === true || exists === undefined) {
-    exactTitle !== undefined &&
-      (await t
-        .expect(dialogTitleSelector(dialogElementBodySelector))
-        .eql(exactTitle));
-
-    bodyText !== undefined &&
-      (await t
-        .expect(dialogBodyTextSelector(dialogElementBodySelector))
-        .contains(bodyText));
-
-    customClassNames !== undefined &&
-      (await t.customActions.expectContainsSubset(
-        customClassNamesSelector(dialogElementBodySelector),
-        customClassNames
-      ));
-  } else {
-    await t.expect(dialogElementBodySelector.exists).notOk();
-  }
 }
 
-function dialogTitleSelector(
-  dialogElementBodySelector: Selector
-): Promise<string> {
+function findDialogTitle(dialogElementBodySelector: Selector): Promise<string> {
   const dialogTitleSelector = dialogElementBodySelector
     .parent('dialog')
     .find('.dialog-element-title');
   return dialogTitleSelector.innerText;
 }
 
-function dialogBodyTextSelector(
+function findDialogBodyText(
   dialogElementBodySelector: Selector
 ): Promise<string> {
   return dialogElementBodySelector.innerText;
 }
 
-function customClassNamesSelector(
+function findDialogElementBodyClassNames(
   dialogElementBodySelector: Selector
 ): Promise<string[]> {
   return dialogElementBodySelector.classNames;
 }
+
+// function closeButtonSelector(customClassNames?: string[]): Selector {
+//   return dialogElementBodySelector
+//     .parent('dialog')
+//     .find('.dialog-element-close');
+// }

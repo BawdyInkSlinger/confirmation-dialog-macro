@@ -101,6 +101,17 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     customClassNames: ['dialog-number-4'],
     exists: false,
   });
+  
+  // close dialog 3 by clicking on its X button
+  // await t
+  //   .click(Selector('.passage .dialog-element-close'))
+  //   .expect(dialogElementCount())
+  //   .eql(2);
+  // await expectDialogElement({
+  //   exactTitle: 'Dialog 3',
+  //   customClassNames: ['dialog-number-3'],
+  //   exists: false,
+  // });
 
   // they should all exist on the page now
   // await expectDialogContentExists(1, true);
