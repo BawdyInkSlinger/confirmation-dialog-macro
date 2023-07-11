@@ -1,9 +1,10 @@
-import { Selector } from "testcafe";
+import { Selector, t } from "testcafe";
 import {
   customClassNames,
   dialogBodyText,
   dialogCount,
   dialogTitle,
+  expectDialogElement,
 } from "./dialog-element-matchers";
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
@@ -21,19 +22,19 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     )
     .click(Selector(".passage button").withText("Open a dialog"))
     .expect(dialogCount())
-    .eql(1)
-    .expect(dialogTitle())
-    .eql("My Title")
-    .expect(dialogBodyText())
-    .contains("My content")
-    .customActions.expectContainsSubset(customClassNames(), [
-      "dialog-number-1",
-      "class-a",
-      "class-b",
-      "class-c",
-      "class-d",
-    ])
-    .click(Selector(".passage button.dialog-element-close"))
+    .eql(1);
+    await expectDialogElement({
+      exactTitle: "My Title",
+      bodyText: "My content",
+      customClassNames: [
+        "dialog-number-1",
+        "class-a",
+        "class-b",
+        "class-c",
+        "class-d",
+      ],
+    })
+    await t.click(Selector(".passage button.dialog-element-close"))
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
     .notOk()
     // it re-creates the dialog when you click the button
@@ -146,3 +147,25 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     )
     .eql(0);
 });
+
+// type AssertDialogElementOptions = Partial<{
+//     exactTitle: string;
+//     bodyText: string;
+//     classNames: string[];
+// }>;
+
+// async function assertDialogElement(options: AssertDialogElementOptions = {}): Promise<TestController> {
+//     await t.expect(dialogTitle())
+//         .eql("My Title")
+//         .expect(dialogBodyText())
+//         .contains("My content")
+//         .customActions.expectContainsSubset(customClassNames(), [
+//             "dialog-number-1",
+//             "class-a",
+//             "class-b",
+//             "class-c",
+//             "class-d",
+//         ]);
+
+//         return t;
+// }
