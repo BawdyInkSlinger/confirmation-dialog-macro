@@ -15,5 +15,13 @@ module.exports = {
         {
             "path": "test/testcafe-client-scripts/scriptContent.js"
         }
-    ]
+    ],
+    "customActions": {
+        async expectContainsSubset(setPromise, subsetPromise) {
+            const set = await setPromise;
+            const subset = await subsetPromise;
+            await this.expect(subset.every((subsetElement) => set.includes(subsetElement)))
+                .ok(`${JSON.stringify(set)} did not contain every element of ${JSON.stringify(subset)}`);
+        },
+    }
 }

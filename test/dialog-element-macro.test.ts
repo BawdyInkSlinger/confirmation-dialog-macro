@@ -1,5 +1,10 @@
 import { Selector } from "testcafe";
-import { dialogCount, dialogTitle } from "./dialog-element-matchers";
+import {
+  customClassNames,
+  dialogBodyText,
+  dialogCount,
+  dialogTitle,
+} from "./dialog-element-matchers";
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
@@ -7,6 +12,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
+
   await t
     .click(
       Selector(".passage button").withText(
@@ -14,38 +20,35 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
       )
     )
     .click(Selector(".passage button").withText("Open a dialog"))
-
-    //  assertOpenSimpleDialog(t, 1) OPEN
     .expect(dialogCount())
     .eql(1)
     .expect(dialogTitle())
     .eql("My Title")
-    .expect(
-      Selector(
-        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
-      ).innerText
-    )
-    .eql("My content")
-    //  assertOpenSimpleDialog(t, 1) CLOSE
-
+    .expect(dialogBodyText())
+    .contains("My content")
+    .customActions.expectContainsSubset(customClassNames(), [
+      "dialog-number-1",
+      "class-a",
+      "class-b",
+      "class-c",
+      "class-d",
+    ])
     .click(Selector(".passage button.dialog-element-close"))
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
     .notOk()
     // it re-creates the dialog when you click the button
     .click(Selector(".passage button").withText("Open a dialog"))
-
-    //  assertOpenSimpleDialog(t, 2) OPEN
-    .expect(dialogCount())
-    .eql(1)
     .expect(dialogTitle())
     .eql("My Title")
-    .expect(
-      Selector(
-        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-2 span`
-      ).innerText
-    )
-    .eql("My content");
-  //  assertOpenSimpleDialog(t, 2) CLOSE
+    .expect(dialogBodyText())
+    .contains("My content")
+    .customActions.expectContainsSubset(customClassNames(), [
+      "dialog-number-2",
+      "class-a",
+      "class-b",
+      "class-c",
+      "class-d",
+    ]);
 });
 
 test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestController): Promise<void> => {
