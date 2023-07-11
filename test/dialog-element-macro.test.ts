@@ -62,15 +62,35 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     )
   );
 
-  // open each dialog one by one
+  // open dialog 1
   await openDialog(1);
   await t.expect(dialogElementCount()).eql(1);
+  await expectDialogElement({
+    exactTitle: 'Dialog 1',
+    customClassNames: ['dialog-number-1'],
+  });
+  // open dialog 2
   await openDialog(2);
   await t.expect(dialogElementCount()).eql(2);
+  await expectDialogElement({
+    exactTitle: 'Dialog 2',
+    customClassNames: ['dialog-number-2'],
+  });
+  // open dialog 3
   await openDialog(3);
   await t.expect(dialogElementCount()).eql(3);
+  await expectDialogElement({
+    exactTitle: 'Dialog 3',
+    customClassNames: ['dialog-number-3'],
+  });
+  // open dialog 4
   await openDialog(4);
   await t.expect(dialogElementCount()).eql(4);
+  await expectDialogElement({
+    exactTitle: 'Dialog 4',
+    customClassNames: ['dialog-number-4'],
+  });
+  
 
   // they should all exist on the page now
   // await expectDialogContentExists(1, true);
@@ -113,30 +133,11 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
   //   .notOk();
 });
 
-async function openDialog(
-  dialogElementNumber: number
-): Promise<void> {
-  await t
-    .click(
-      Selector('.passage button').withText(`Open Dialog ${dialogElementNumber}`)
-    )
+async function openDialog(dialogElementNumber: number): Promise<void> {
+  await t.click(
+    Selector('.passage button').withText(`Open Dialog ${dialogElementNumber}`)
+  );
 }
-
-// async function expectDialogContentExists(
-//   dialogElementNumber: number,
-//   shouldExist: boolean
-// ): Promise<void> {
-//   await t
-//     .expect(Selector(`dialog-number-${dialogElementNumber}`).exists)
-//     .eql(shouldExist);
-
-//   if (shouldExist) {
-//     await expectDialogElement({
-//       exactTitle: `Dialog ${dialogElementNumber}`,
-//       customClassNames: [`dialog-number-${dialogElementNumber}`],
-//     });
-//   }
-// }
 
 test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {

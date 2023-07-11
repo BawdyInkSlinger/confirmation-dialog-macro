@@ -8,12 +8,14 @@ type ExpectDialogElementContent = Partial<{
   exactTitle: string;
   bodyText: string;
   customClassNames: string[];
+  exists: boolean;
 }>;
 
 export async function expectDialogElement({
   exactTitle,
   bodyText,
   customClassNames,
+  exists,
 }: ExpectDialogElementContent = {}): Promise<void> {
   const dialogElementBodyClasses = new Set<string>(customClassNames);
   dialogElementBodyClasses.add(`dialog-element-body`);
@@ -25,21 +27,25 @@ export async function expectDialogElement({
     `.passage .macro-dialogelement ${classesInCssSelectorFormat}`
   );
 
-  exactTitle !== undefined &&
-    (await t
-      .expect(dialogTitleSelector(dialogElementBodySelector))
-      .eql(exactTitle));
+  if (exists === true || exists === undefined) {
+    exactTitle !== undefined &&
+      (await t
+        .expect(dialogTitleSelector(dialogElementBodySelector))
+        .eql(exactTitle));
 
-  bodyText !== undefined &&
-    (await t
-      .expect(dialogBodyTextSelector(dialogElementBodySelector))
-      .contains(bodyText));
+    bodyText !== undefined &&
+      (await t
+        .expect(dialogBodyTextSelector(dialogElementBodySelector))
+        .contains(bodyText));
 
-  customClassNames !== undefined &&
-    (await t.customActions.expectContainsSubset(
-      customClassNamesSelector(dialogElementBodySelector),
-      customClassNames
-    ));
+    customClassNames !== undefined &&
+      (await t.customActions.expectContainsSubset(
+        customClassNamesSelector(dialogElementBodySelector),
+        customClassNames
+      ));
+  } else {
+    await t.expect(dialogElementBodySelector.exists).notOk();
+  }
 }
 
 function dialogTitleSelector(
