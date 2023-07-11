@@ -123,17 +123,18 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     bodyText: 'My content',
     customClassNames: ['dialog-number-1'],
   });
-  // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
+  // attempt to click "outside" the dialog modal
   await t
-    .click(Selector('#ui-dialog-close'))
+    .click(Selector('body', { 'timeout': 200 }), {
+      'offsetX': 1,
+      'offsetY': 1,
+    })
     // this should close the topmost dialog because you clicked off it
     .expect(Selector('.passage .macro-dialogelement.dialog-element').exists)
     .notOk()
     // but the Dialog API should remain open since the topmost dialog's overlay ate the previous click
     .expect(Selector('#ui-dialog-close').visible)
     .ok()
-    .expect(
-      Selector('.passage .macro-dialogelement .dialog-element-titlebar').count
-    )
+    .expect(dialogElementCount())
     .eql(0);
 });
