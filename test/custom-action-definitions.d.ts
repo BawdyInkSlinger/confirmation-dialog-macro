@@ -1,4 +1,4 @@
-import "testcafe";
+import 'testcafe';
 
 declare global {
   interface CustomActions {

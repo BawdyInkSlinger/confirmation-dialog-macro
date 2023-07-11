@@ -1,23 +1,23 @@
-import { t, Selector } from "testcafe";
+import { t, Selector } from 'testcafe';
 
 export function dialogElementCount(): Promise<number> {
-  return Selector("dialog").count;
+  return Selector('dialog').count;
 }
 
 function dialogTitleSelector(
   dialogElementBodySelector = Selector(
-    ".passage .macro-dialogelement .dialog-element-body"
+    '.passage .macro-dialogelement .dialog-element-body'
   )
 ): Promise<string> {
   const dialogTitleSelector = dialogElementBodySelector
-    .parent("dialog")
-    .find(".dialog-element-title");
+    .parent('dialog')
+    .find('.dialog-element-title');
   return dialogTitleSelector.innerText;
 }
 
 function dialogBodyTextSelector(
   dialogElementBodySelector = Selector(
-    ".passage .macro-dialogelement .dialog-element-body"
+    '.passage .macro-dialogelement .dialog-element-body'
   )
 ): Promise<string> {
   return dialogElementBodySelector.innerText;
@@ -25,7 +25,7 @@ function dialogBodyTextSelector(
 
 function customClassNamesSelector(
   dialogElementBodySelector = Selector(
-    ".passage .macro-dialogelement .dialog-element-body"
+    '.passage .macro-dialogelement .dialog-element-body'
   )
 ): Promise<string[]> {
   return dialogElementBodySelector.classNames;
@@ -46,7 +46,7 @@ export async function expectDialogElement({
   dialogElementBodyClasses.add(`dialog-element-body`);
 
   const classesInCssSelectorFormat =
-    "." + [...dialogElementBodyClasses].join(".");
+    '.' + [...dialogElementBodyClasses].join('.');
 
   const dialogElementBodySelector = Selector(
     `.passage .macro-dialogelement ${classesInCssSelectorFormat}`

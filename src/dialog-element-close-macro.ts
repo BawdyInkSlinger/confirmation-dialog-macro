@@ -1,4 +1,4 @@
-Macro.add("dialogelementclose", {
+Macro.add('dialogelementclose', {
   skipArgs: true,
   handler: closeDialogElement,
 });
