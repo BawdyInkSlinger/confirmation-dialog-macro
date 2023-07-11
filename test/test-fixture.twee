@@ -28,55 +28,41 @@ Config.passages.nobr = true;
 :: Test can create and recreate dialog element macros
 <h1>Test can create and recreate dialog element macros</h1>
 <<button "Open a dialog">>
-    <<opendialogelement "My Title">>My content<</opendialogelement>>
+    <<set $dialog_number to $dialog_number + 1>>
+    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+        My content
+    <</dialogelement>>
 <</button>>
 
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
 <<button "Open simple dialog">>
-    <<opendialogelement "My Title">>
+    <<set $dialog_number to $dialog_number + 1>>
+    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
         <span>My content</span>
-        <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
-    <</opendialogelement>>
+        <<button "Open another simple dialog">>
+            <<set $dialog_number to $dialog_number + 1>>
+            <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+                <span>My content</span>
+            <</dialogelement>>
+        <</button>>
+    <</dialogelement>>
 <</button>>
 
 :: Test can open on top of official Sugarcube Dialog UI
 <h1>Test can open on top of official Sugarcube Dialog UI</h1>
-<<button "Open simple dialog">>
-    <<opendialogelement "My Title">>
-        My content
-    <</opendialogelement>>
-<</button>>
-
-<br><br>
-
 <<button "Open Sugarcube Dialog API">>
     <<script>>
         Dialog.setup("Dialog API", "official-dialog-api");
-        Dialog.wiki(`<<button "Open simple dialog over Dialog API">>
-            <<opendialogelement "My Title">>
-                <span>My content</span>
-                <<button "Open another simple dialog">>
-                    <<include "Test Dialog Element">>
-                <</button>>
-            <</opendialogelement>>
-        <</button>>`);
+        Dialog.wiki(Story.get("Sugarcube Dialog Body").processText());
         Dialog.open();
     <</script>>
 <</button>>
 
-:: Test Dialog Element
-<<set $dialog_number to $dialog_number + 1>>
-<<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
-    <span>My content</span>
-    <<button "Open another simple dialog">><<include "Test Dialog Element">><</button>>
-<</dialogelement>>
-
-:: Open Dialog Element Widget [widget]
-<<widget opendialogelement container>>
-    <<set _title to _args[0]>>
+:: Sugarcube Dialog Body
+<<button "Open simple dialog over Dialog API">>
     <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement _title "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
-        _contents
+    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+        <span>My content</span>
     <</dialogelement>>
-<</widget>>
+<</button>>
