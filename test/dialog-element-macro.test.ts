@@ -40,17 +40,19 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
     .notOk()
     // it re-creates the dialog when you click the button
     .click(Selector(".passage button").withText("Open a dialog"))
-    .expect(dialogTitle())
-    .eql("My Title")
-    .expect(dialogBodyText())
-    .contains("My content")
-    .customActions.expectContainsSubset(customClassNames(), [
+    .expect(dialogCount())
+    .eql(1);
+  await expectDialogElement({
+    exactTitle: "My Title",
+    bodyText: "My content",
+    customClassNames: [
       "dialog-number-2",
       "class-a",
       "class-b",
       "class-c",
       "class-d",
-    ]);
+    ],
+  });
 });
 
 test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestController): Promise<void> => {
