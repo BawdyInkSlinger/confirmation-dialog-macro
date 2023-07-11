@@ -123,6 +123,7 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     bodyText: 'My content',
     customClassNames: ['dialog-number-1'],
   });
+  // TODO: delete what follows: should be tested for stacked dialog test
   // attempt to click "outside" the dialog modal
   await t
     .click(Selector('body', { 'timeout': 200 }), {
