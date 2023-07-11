@@ -4,33 +4,6 @@ export function dialogElementCount(): Promise<number> {
   return Selector('dialog').count;
 }
 
-function dialogTitleSelector(
-  dialogElementBodySelector = Selector(
-    '.passage .macro-dialogelement .dialog-element-body'
-  )
-): Promise<string> {
-  const dialogTitleSelector = dialogElementBodySelector
-    .parent('dialog')
-    .find('.dialog-element-title');
-  return dialogTitleSelector.innerText;
-}
-
-function dialogBodyTextSelector(
-  dialogElementBodySelector = Selector(
-    '.passage .macro-dialogelement .dialog-element-body'
-  )
-): Promise<string> {
-  return dialogElementBodySelector.innerText;
-}
-
-function customClassNamesSelector(
-  dialogElementBodySelector = Selector(
-    '.passage .macro-dialogelement .dialog-element-body'
-  )
-): Promise<string[]> {
-  return dialogElementBodySelector.classNames;
-}
-
 type AssertDialogElementOptions = Partial<{
   exactTitle: string;
   bodyText: string;
@@ -67,4 +40,25 @@ export async function expectDialogElement({
       customClassNamesSelector(dialogElementBodySelector),
       customClassNames
     ));
+}
+
+function dialogTitleSelector(
+  dialogElementBodySelector: Selector
+): Promise<string> {
+  const dialogTitleSelector = dialogElementBodySelector
+    .parent('dialog')
+    .find('.dialog-element-title');
+  return dialogTitleSelector.innerText;
+}
+
+function dialogBodyTextSelector(
+  dialogElementBodySelector: Selector
+): Promise<string> {
+  return dialogElementBodySelector.innerText;
+}
+
+function customClassNamesSelector(
+  dialogElementBodySelector: Selector
+): Promise<string[]> {
+  return dialogElementBodySelector.classNames;
 }
