@@ -36,14 +36,14 @@ Config.passages.nobr = true;
 
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
-<<button "Open simple dialog">>
+<<button "Open Dialog 1">>
     <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "First Title" `"dialog-number-" + $dialog_number`>>
-        <span>My content</span>
-        <<button "Open another simple dialog">>
+    <<dialogelement "Dialog 1" `"dialog-number-" + $dialog_number`>>
+        <<button "Open Dialog 2">>
             <<set $dialog_number to $dialog_number + 1>>
-            <<dialogelement "Second Title" `"dialog-number-" + $dialog_number`>>
-                <span>My content</span>
+            <<dialogelement "Dialog 2" `"dialog-number-" + $dialog_number`>>
+
+
             <</dialogelement>>
         <</button>>
     <</dialogelement>>

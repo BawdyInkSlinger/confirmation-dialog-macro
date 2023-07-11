@@ -62,21 +62,21 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
         'Test can stack multiple dialogs and close them, top to bottom'
       )
     )
-    .click(Selector('.passage button').withText('Open simple dialog'))
+    .click(Selector('.passage button').withText('Open Dialog 1'))
     .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
-    exactTitle: 'First Title',
+    exactTitle: 'Dialog 1',
     customClassNames: ['dialog-number-1'],
   });
   await t
     .click(
-      Selector('.dialog-number-1 button').withText('Open another simple dialog')
+      Selector('.dialog-number-1 button').withText('Open Dialog 2')
     )
     .expect(dialogElementCount())
     .eql(2);
   await expectDialogElement({
-    exactTitle: 'Second Title',
+    exactTitle: 'Dialog 2',
     customClassNames: ['dialog-number-2'],
   });
   await t
