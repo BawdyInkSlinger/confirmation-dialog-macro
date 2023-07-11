@@ -66,20 +66,20 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
       )
     )
     .click(Selector(".passage button").withText("Open simple dialog"))
-
-    //  assertOpenSimpleDialog(t, 1) OPEN
     .expect(dialogCount())
-    .eql(1)
-    .expect(dialogTitle())
-    .eql("My Title")
-    .expect(
-      Selector(
-        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
-      ).innerText
-    )
-    .eql("My content")
-    //  assertOpenSimpleDialog(t, 1) CLOSE
-
+    .eql(1);
+  await expectDialogElement({
+    exactTitle: "My Title",
+    bodyText: "My content",
+    customClassNames: [
+      "dialog-number-1",
+      "class-a",
+      "class-b",
+      "class-c",
+      "class-d",
+    ],
+  });
+  await t
     .click(
       Selector(".dialog-number-1 button").withText("Open another simple dialog")
     )
@@ -122,22 +122,20 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
       Selector("#ui-dialog-body button").withText(
         "Open simple dialog over Dialog API"
       )
-    )
-
-    //  assertOpenSimpleDialog(t, 1) OPEN
-    .expect(dialogCount())
-    .eql(1)
-    .expect(dialogTitle())
-    .eql("My Title")
-    .expect(
-      Selector(
-        `.passage .macro-dialogelement .dialog-element-body.class-a.class-b.class-c.class-d.dialog-number-1 span`
-      ).innerText
-    )
-    .eql("My content")
-    //  assertOpenSimpleDialog(t, 1) CLOSE
-
-    // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
+    );
+  await expectDialogElement({
+    exactTitle: "My Title",
+    bodyText: "My content",
+    customClassNames: [
+      "dialog-number-1",
+      "class-a",
+      "class-b",
+      "class-c",
+      "class-d",
+    ],
+  });
+  // attempt to click on something "behind" the dialog modal (the close button on the Dialog API)
+  await t
     .click(Selector("#ui-dialog-close"))
     // this should close the topmost dialog because you clicked off it
     .expect(Selector(".passage .macro-dialogelement.dialog-element").exists)
@@ -150,25 +148,3 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     )
     .eql(0);
 });
-
-// type AssertDialogElementOptions = Partial<{
-//     exactTitle: string;
-//     bodyText: string;
-//     classNames: string[];
-// }>;
-
-// async function assertDialogElement(options: AssertDialogElementOptions = {}): Promise<TestController> {
-//     await t.expect(dialogTitle())
-//         .eql("My Title")
-//         .expect(dialogBodyText())
-//         .contains("My content")
-//         .customActions.expectContainsSubset(customClassNames(), [
-//             "dialog-number-1",
-//             "class-a",
-//             "class-b",
-//             "class-c",
-//             "class-d",
-//         ]);
-
-//         return t;
-// }
