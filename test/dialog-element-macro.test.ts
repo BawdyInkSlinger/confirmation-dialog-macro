@@ -127,14 +127,10 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     customClassNames: ['dialog-number-2'],
     exists: false,
   });
-
-  // TODO: I can't figure out how to get a synthetic keypress to close an html dialog, 
-  // so I can't write an automated test to close the dialog that way.
-  // In lieu of that, I will close this one in a way I already have:
   
-  // close dialog 1 by clicking on its X button
+  // close dialog 1 by pressing escape
   await t
-    .click(closeButton('dialog-number-1'))
+    .pressKey("esc")
     .expect(dialogElementCount())
     .eql(0);
   await expectDialogElement({

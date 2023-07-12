@@ -36,6 +36,19 @@ Config.passages.nobr = true;
 
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
+<<done>>
+  <<script>>
+    /* I can't figure out how to get a synthetic keypress to close an html dialog,
+    so I'm faking it with this listener. */
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "Escape") {
+        $(`dialog`).each((index, dialog) => {
+          dialog.close();
+        });
+      }
+    });
+  <</script>>
+<</done>>
 <<button "Open Dialog 1">>
   <<set $dialog_number to $dialog_number + 1>>
   <<dialogelement "Dialog 1" `"dialog-number-" + $dialog_number`>>
