@@ -171,19 +171,4 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
     bodyText: 'My content',
     customClassNames: ['dialog-number-1'],
   });
-  // TODO: delete what follows: should be tested for stacked dialog test
-  // attempt to click "outside" the dialog modal
-  await t
-    .click(Selector('body', { 'timeout': 200 }), {
-      'offsetX': 1,
-      'offsetY': 1,
-    })
-    // this should close the topmost dialog because you clicked off it
-    .expect(Selector('.passage .macro-dialogelement.dialog-element').exists)
-    .notOk()
-    // but the Dialog API should remain open since the topmost dialog's overlay ate the previous click
-    .expect(Selector('#ui-dialog-close').visible)
-    .ok()
-    .expect(dialogElementCount())
-    .eql(0);
 });
