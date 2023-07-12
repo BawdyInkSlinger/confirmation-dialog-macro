@@ -37,25 +37,25 @@ Config.passages.nobr = true;
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
 <<button "Open Dialog 1">>
-    <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "Dialog 1" `"dialog-number-" + $dialog_number`>>
-        <<button "Open Dialog 2">>
-            <<set $dialog_number to $dialog_number + 1>>
-            <<dialogelement "Dialog 2" `"dialog-number-" + $dialog_number`>>
-              <<button "Open Dialog 3">>
-                  <<set $dialog_number to $dialog_number + 1>>
-                  <<dialogelement "Dialog 3" `"dialog-number-" + $dialog_number`>>
-                      <<button "Open Dialog 4">>
-                          <<set $dialog_number to $dialog_number + 1>>
-                          <<dialogelement "Dialog 4" `"dialog-number-" + $dialog_number`>>
-                            <<button "Custom close button">><<dialogelementclose>><</button>>
-                          <</dialogelement>>
-                      <</button>>
-                  <</dialogelement>>
-              <</button>>
-            <</dialogelement>>
+  <<set $dialog_number to $dialog_number + 1>>
+  <<dialogelement "Dialog 1" `"dialog-number-" + $dialog_number`>>
+    <<button "Open Dialog 2">>
+      <<set $dialog_number to $dialog_number + 1>>
+      <<dialogelement "Dialog 2" `"dialog-number-" + $dialog_number`>>
+        <<button "Open Dialog 3">>
+          <<set $dialog_number to $dialog_number + 1>>
+          <<dialogelement "Dialog 3" `"dialog-number-" + $dialog_number`>>
+            <<button "Open Dialog 4">>
+              <<set $dialog_number to $dialog_number + 1>>
+              <<dialogelement "Dialog 4" `"dialog-number-" + $dialog_number`>>
+                <<button "Custom close button">><<dialogelementclose>><</button>>
+              <</dialogelement>>
+            <</button>>
+          <</dialogelement>>
         <</button>>
-    <</dialogelement>>
+      <</dialogelement>>
+    <</button>>
+  <</dialogelement>>
 <</button>>
 
 :: Test can open on top of official Sugarcube Dialog UI

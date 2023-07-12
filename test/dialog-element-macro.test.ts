@@ -1,5 +1,6 @@
 import { Selector, t } from 'testcafe';
 import {
+  closeButton,
   dialogElementCount,
   expectDialogElement,
 } from './dialog-element-testcafe-utils';
@@ -101,57 +102,46 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     customClassNames: ['dialog-number-4'],
     exists: false,
   });
-  
+
   // close dialog 3 by clicking on its X button
-  // await t
-  //   .click(Selector('.passage .dialog-element-close'))
-  //   .expect(dialogElementCount())
-  //   .eql(2);
-  // await expectDialogElement({
-  //   exactTitle: 'Dialog 3',
-  //   customClassNames: ['dialog-number-3'],
-  //   exists: false,
-  // });
+  await t
+    .click(closeButton('dialog-number-3'))
+    .expect(dialogElementCount())
+    .eql(2);
+  await expectDialogElement({
+    exactTitle: 'Dialog 3',
+    customClassNames: ['dialog-number-3'],
+    exists: false,
+  });
 
-  // they should all exist on the page now
-  // await expectDialogContentExists(1, true);
+  // close dialog 2 by clicking outside of it
+  await t
+    .click(Selector('body', { 'timeout': 200 }), {
+      'offsetX': 1,
+      'offsetY': 1,
+    })
+    .expect(dialogElementCount())
+    .eql(1);
+  await expectDialogElement({
+    exactTitle: 'Dialog 2',
+    customClassNames: ['dialog-number-2'],
+    exists: false,
+  });
 
-  //   .click(Selector('.passage button').withText('Open Dialog 1'))
-  //   .expect(dialogElementCount())
-  //   .eql(1);
-  // await expectDialogElement({
-  //   exactTitle: 'Dialog 1',
-  //   customClassNames: ['dialog-number-1'],
-  // });
-  // await t
-  //   .click(Selector('.dialog-number-1 button').withText('Open Dialog 2'))
-  //   .expect(dialogElementCount())
-  //   .eql(2);
-  // await expectDialogElement({
-  //   exactTitle: 'Dialog 2',
-  //   customClassNames: ['dialog-number-2'],
-  // });
-  // await t
-  //   .expect(Selector('.passage .dialog-number-1').exists)
-  //   .ok()
-  //   .expect(Selector('.passage .dialog-number-2').exists)
-  //   .ok()
-  //   // it should close the topmost only
-  //   .click(
-  //     Selector('.dialog-number-2').parent(0).find('button.dialog-element-close')
-  //   )
-  //   .expect(Selector('.passage .dialog-number-1').exists)
-  //   .ok()
-  //   .expect(Selector('.passage .dialog-number-2').exists)
-  //   .notOk()
-  //   // now close the first one
-  //   .click(
-  //     Selector('.dialog-number-1').parent(0).find('button.dialog-element-close')
-  //   )
-  //   .expect(Selector('.passage .dialog-number-1').exists)
-  //   .notOk()
-  //   .expect(Selector('.passage .dialog-number-2').exists)
-  //   .notOk();
+  // TODO: I can't figure out how to get a synthetic keypress to close an html dialog, 
+  // so I can't write an automated test to close the dialog that way.
+  // In lieu of that, I will close this one in a way I already have:
+  
+  // close dialog 1 by clicking on its X button
+  await t
+    .click(closeButton('dialog-number-1'))
+    .expect(dialogElementCount())
+    .eql(0);
+  await expectDialogElement({
+    exactTitle: 'Dialog 1',
+    customClassNames: ['dialog-number-1'],
+    exists: false,
+  });
 });
 
 async function openDialog(dialogElementNumber: number): Promise<void> {

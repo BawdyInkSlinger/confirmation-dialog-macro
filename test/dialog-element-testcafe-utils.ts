@@ -51,11 +51,11 @@ function findDialogElementBodyClassNames(
   return dialogElementBodySelector(customClassNames).classNames;
 }
 
-// function closeButtonSelector(customClassNames?: string[]): Selector {
-//   return dialogElementBodySelector
-//     .parent('dialog')
-//     .find('.dialog-element-close');
-// }
+export function closeButton(customClassName: string): Selector {
+  return dialogElementBodySelector([customClassName])
+    .parent('dialog')
+    .find('.dialog-element-close');
+}
 
 function dialogElementBodySelector(customClassNames?: string[]): Selector {
   const dialogElementBodyClasses = new Set<string>(customClassNames);
