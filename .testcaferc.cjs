@@ -1,5 +1,5 @@
 module.exports = {
-  "browsers": ["firefox:headless"],
+  "browsers": ["chrome:headless"],
   "reporter": {
     "name": "spec-time"
   },
