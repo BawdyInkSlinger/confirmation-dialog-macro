@@ -5,6 +5,5 @@ Macro.add('dialogelementclose', {
 
 function closeDialogElement() {
   const $dialog = popDialogStack();
-  $dialog[0].close(); // fire a dialog close event
-  $dialog.remove();
+  $dialog[0].close();
 }

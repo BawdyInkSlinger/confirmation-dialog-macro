@@ -3,10 +3,12 @@ sugarcube-2:
     dialogelement:
       name: dialogelement
       container: true
+      children:
+      - "onopen"
+      - "onclose"
     dialogelementclose:
       name: dialogelementclose
-    opendialogelement:
-      name: opendialogelement
-      container: true
-      parameters: 
-      - "text"
+    onopen:
+      name: onopen
+    onclose:
+      name: onclose

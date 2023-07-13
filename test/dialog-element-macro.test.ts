@@ -53,7 +53,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
   });
 });
 
-test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestController): Promise<void> => {
+test(`can stack multiple dialogs and close them, top to bottom, while triggering <<onopen>> and <<onclose>>`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
@@ -127,17 +127,26 @@ test(`can stack multiple dialogs and close them, top to bottom`, async (t: TestC
     customClassNames: ['dialog-number-2'],
     exists: false,
   });
-  
+
   // close dialog 1 by pressing escape
-  await t
-    .pressKey("esc")
-    .expect(dialogElementCount())
-    .eql(0);
+  await t.pressKey('esc')
+  .expect(dialogElementCount()).eql(0);
   await expectDialogElement({
     exactTitle: 'Dialog 1',
     customClassNames: ['dialog-number-1'],
     exists: false,
   });
+
+  // check that <<onopen>> and <<onclose>> worked correctly
+  await t.expect(Selector('#event-log > p').nth(0).innerText).eql('Opened 1');
+  await t.expect(Selector('#event-log > p').nth(1).innerText).eql('Opened 2');
+  await t.expect(Selector('#event-log > p').nth(2).innerText).eql('Opened 3');
+  await t.expect(Selector('#event-log > p').nth(3).innerText).eql('Opened 4');
+  await t.expect(Selector('#event-log > p').nth(4).innerText).eql('Closed 4');
+  await t.expect(Selector('#event-log > p').nth(5).innerText).eql('Closed 3');
+  await t.expect(Selector('#event-log > p').nth(6).innerText).eql('Closed 2');
+  await t.expect(Selector('#event-log > p').nth(7).innerText).eql('Closed 1');
+  await t.expect(Selector('#event-log p').count).eql(8);
 });
 
 async function openDialog(dialogElementNumber: number): Promise<void> {

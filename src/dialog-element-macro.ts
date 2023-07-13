@@ -1,16 +1,30 @@
 Macro.add('dialogelement', {
-  tags: null,
+  tags: ['onopen', 'onclose'],
   handler: function () {
-    const content = this.payload[0].contents;
+    let content = '';
+    let onOpen = null as string | null;
+    let onClose = null as string | null;
+
+    this.payload.forEach(function (payload, index) {
+      if (index === 0) {
+        content = payload.contents;
+      } else {
+        if (payload.name === 'onopen') {
+          onOpen = onOpen ? onOpen + payload.contents : payload.contents;
+        } else {
+          onClose = onClose ? onClose + payload.contents : payload.contents;
+        }
+      }
+    });
     const title = this.args.length > 0 ? this.args[0] : '';
-    const classes = this.args.length > 1 ?  this.args.slice(1).flat() : [];
-    
+    const classes = this.args.length > 1 ? this.args.slice(1).flat() : [];
+
     const $dialog = $(document.createElement('dialog'))
       .addClass(`macro-${this.name} dialog-element`)
       .css({ padding: '0' /* https://stackoverflow.com/a/72916231/61624 */ })
       .on('click', function (event) {
         if (event.target === this) {
-          closeDialogElement();
+          $dialog[0].close();
         }
       });
 
@@ -27,7 +41,7 @@ Macro.add('dialogelement', {
         .addClass('dialog-element-close')
         .text('')
         .ariaClick(() => {
-          closeDialogElement();
+          $dialog[0].close();
         })
     );
     $dialog.append($dialogTitleBar);
@@ -35,10 +49,20 @@ Macro.add('dialogelement', {
     const $dialogBody = $(document.createElement('div'))
       .addClass(classes)
       .addClass('dialog-element-body')
-      .wiki(content);
+      .wiki((onOpen ?? '') + content);
     $dialog.append($dialogBody);
 
     $(`.passage`).append($dialog);
+
+    if (onClose && typeof onClose === 'string' && onClose.trim()) {
+      $dialog.on('close', () => {
+        $.wiki(onClose as string);
+      });
+    }
+
+    $dialog.on('close', () => {
+      $dialog.remove();
+    });
 
     pushDialogStack($dialog);
     $dialog[0].showModal();

@@ -36,40 +36,53 @@ Config.passages.nobr = true;
 
 :: Test can stack multiple dialogs and close them, top to bottom
 <h1>Test can stack multiple dialogs and close them, top to bottom</h1>
-<<done>>
-  <<script>>
-    /* I can't figure out how to get a synthetic keypress to close an html dialog,
-    so I'm faking it with this listener. */
-    document.addEventListener("keyup", (e) => {
-      if (e.key === "Escape") {
-        $(`dialog`).each((index, dialog) => {
-          dialog.close();
-        });
-      }
-    });
-  <</script>>
-<</done>>
 <<button "Open Dialog 1">>
   <<set $dialog_number to $dialog_number + 1>>
+  /* Start Dialog 1 */
   <<dialogelement "Dialog 1" `"dialog-number-" + $dialog_number`>>
     <<button "Open Dialog 2">>
       <<set $dialog_number to $dialog_number + 1>>
+      /* Start Dialog 2 */
       <<dialogelement "Dialog 2" `"dialog-number-" + $dialog_number`>>
         <<button "Open Dialog 3">>
           <<set $dialog_number to $dialog_number + 1>>
+          /* Start Dialog 3 */
           <<dialogelement "Dialog 3" `"dialog-number-" + $dialog_number`>>
             <<button "Open Dialog 4">>
               <<set $dialog_number to $dialog_number + 1>>
+              /* Start Dialog 4 */
               <<dialogelement "Dialog 4" `"dialog-number-" + $dialog_number`>>
                 <<button "Custom close button">><<dialogelementclose>><</button>>
+              <<onopen>>
+                <<append "#event-log">><p>Opened 4</p><</append>>
+              <<onclose>>
+                <<append "#event-log">><p>Closed 4</p><</append>>
               <</dialogelement>>
+              /* End Dialog 4 */
             <</button>>
+          <<onopen>>
+            <<append "#event-log">><p>Opened 3</p><</append>>
+          <<onclose>>
+            <<append "#event-log">><p>Closed 3</p><</append>>
           <</dialogelement>>
+          /* End Dialog 3 */
         <</button>>
+      <<onopen>>
+        <<append "#event-log">><p>Opened 2</p><</append>>
+      <<onclose>>
+        <<append "#event-log">><p>Closed 2</p><</append>>
       <</dialogelement>>
+      /* End Dialog 2 */
     <</button>>
+  <<onopen>>
+    <<append "#event-log">><p>Opened 1</p><</append>>
+  <<onclose>>
+    <<append "#event-log">><p>Closed 1</p><</append>>
   <</dialogelement>>
+  /* End Dialog 1 */
 <</button>>
+<h2>Event Log</h2>
+<div id="event-log"></div>
 
 :: Test can open on top of official Sugarcube Dialog UI
 <h1>Test can open on top of official Sugarcube Dialog UI</h1>
