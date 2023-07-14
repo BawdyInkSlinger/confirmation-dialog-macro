@@ -29,7 +29,7 @@ Config.passages.nobr = true;
 <h1>Test can recreate dialog element macros</h1>
 <<button "Open a dialog">>
     <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "My Title" "class-a" "class-b" "class-c" "class-d" `"dialog-number-" + $dialog_number`>>
+    <<dialogelement "My Title" `"class-a class-b class-c class-d dialog-number-" + $dialog_number`>>
         My content
     <</dialogelement>>
 <</button>>
