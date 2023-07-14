@@ -21,7 +21,7 @@ Config.passages.nobr = true;
 <h1>Test Fixtures</h1>
 <<button "Test can create and recreate dialog element macros" "Test can create and recreate dialog element macros">><</button>><br><br>
 
-<<button "Test can stack multiple dialogs and close them, top to bottom" "Test can stack multiple dialogs and close them, top to bottom">><</button>><br><br>
+<<button "Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose" "Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose">><</button>><br><br>
 
 <<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>><br><br>
 
@@ -34,8 +34,8 @@ Config.passages.nobr = true;
     <</dialogelement>>
 <</button>>
 
-:: Test can stack multiple dialogs and close them, top to bottom
-<h1>Test can stack multiple dialogs and close them, top to bottom</h1>
+:: Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose
+<h1>Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose</h1>
 <<button "Open Dialog 1">>
   <<set $dialog_number to $dialog_number + 1>>
   /* Start Dialog 1 */

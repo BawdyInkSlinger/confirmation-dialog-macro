@@ -53,13 +53,13 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
   });
 });
 
-test(`can stack multiple dialogs and close them, top to bottom, while triggering <<onopen>> and <<onclose>>`, async (t: TestController): Promise<void> => {
+test(`can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
   await t.click(
     Selector('.passage button').withText(
-      'Test can stack multiple dialogs and close them, top to bottom'
+      `Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose`
     )
   );
 
@@ -129,8 +129,7 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
   });
 
   // close dialog 1 by pressing escape
-  await t.pressKey('esc')
-  .expect(dialogElementCount()).eql(0);
+  await t.pressKey('esc').expect(dialogElementCount()).eql(0);
   await expectDialogElement({
     exactTitle: 'Dialog 1',
     customClassNames: ['dialog-number-1'],
