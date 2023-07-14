@@ -7,7 +7,7 @@ import {
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
-test(`can create and recreate dialog element macros`, async (t: TestController): Promise<void> => {
+test(`can recreate dialog element macros`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });
@@ -15,7 +15,7 @@ test(`can create and recreate dialog element macros`, async (t: TestController):
   await t
     .click(
       Selector('.passage button').withText(
-        'Test can create and recreate dialog element macros'
+        'Test can recreate dialog element macros'
       )
     )
     .click(Selector('.passage button').withText('Open a dialog'))
