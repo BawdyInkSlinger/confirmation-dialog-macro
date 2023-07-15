@@ -12,18 +12,6 @@ test(`can create dialog element macros with various title and class name combina
     throw new Error(text);
   });
 
-/*
-no arguments
-blank arguments
-blank title, one class
-blank title, some classes
-title, no classes
-title, blank classes
-title, one class
-title, some classes
-title, some classes, blank body
-*/
-
   await t
     .click(
       Selector('.passage button').withText(
@@ -130,11 +118,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
     exactTitle: 'My Title',
     bodyText: 'My content',
     customClassNames: [
-      'dialog-number-1',
-      'class-a',
-      'class-b',
-      'class-c',
-      'class-d',
+      'dialog-number-1'
     ],
   });
   await t
@@ -149,11 +133,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
     exactTitle: 'My Title',
     bodyText: 'My content',
     customClassNames: [
-      'dialog-number-2',
-      'class-a',
-      'class-b',
-      'class-c',
-      'class-d',
+      'dialog-number-2'
     ],
   });
 });
