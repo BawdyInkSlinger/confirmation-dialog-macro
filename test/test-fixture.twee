@@ -19,11 +19,78 @@ Config.passages.nobr = true;
 
 :: Test Fixtures
 <h1>Test Fixtures</h1>
+<<button "Test can create dialog element macros with various title and class name combinations" "Test can create dialog element macros with various title and class name combinations">><</button>><br><br>
+
 <<button "Test can recreate dialog element macros" "Test can recreate dialog element macros">><</button>><br><br>
 
 <<button "Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose" "Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose">><</button>><br><br>
 
 <<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>><br><br>
+
+:: Test can create dialog element macros with various title and class name combinations
+<h1>Test can create dialog element macros with various title and class name combinations</h1>
+<<include "Test no arguments">>
+
+:: Test no arguments
+<<button "Open dialog with no arguments">>
+    <<dialogelement>>
+        <<button "Test blank arguments" "Test blank arguments">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test blank arguments
+<<button "Open dialog with blank arguments">>
+    <<dialogelement '' ''>>
+        <<button "Test blank title, one-class" "Test blank title, one-class">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test blank title, one-class
+<<button "Open dialog with blank title, one-class">>
+    <<dialogelement '  ' 'one-class'>>
+        <<button "Test blank title, some classes" "Test blank title, some classes">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test blank title, some classes
+<<button "Open dialog with blank title, some classes">>
+    <<dialogelement '' 'some classes'>>
+        <<button "Test title, no classes" "Test title, no classes">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test title, no classes
+<<button "Open dialog with title, no classes">>
+    <<dialogelement 'title'>>
+        <<button "Test title, blank classes" "Test title, blank classes">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test title, blank classes
+<<button "Open dialog with title, blank classes">>
+    <<dialogelement 'title' ' '>>
+        <<button "Test title, one-class" "Test title, one-class">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test title, one-class
+<<button "Open dialog with title, one-class">>
+    <<dialogelement 'title' 'one-class'>>
+        <<button "Test title, more than one class" "Test title, more than one class">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test title, more than one class
+<<button "Open dialog with title, more than one class">>
+    <<dialogelement 'title' 'more than one class'>>
+        <<button "Test title, some classes, blank body" "Test title, some classes, blank body">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test title, some classes, blank body
+<<button "Open dialog with title, some classes, blank body">>
+    <<dialogelement 'title' 'some classes'>><</dialogelement>>
+<</button>>
 
 :: Test can recreate dialog element macros
 <h1>Test can recreate dialog element macros</h1>

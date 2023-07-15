@@ -7,6 +7,7 @@ export function dialogElementCount(): Promise<number> {
 type ExpectDialogElementContent = Partial<{
   exactTitle: string;
   bodyText: string;
+  exactBodyText: string;
   customClassNames: string[];
   exists: boolean;
 }>;
@@ -14,6 +15,7 @@ type ExpectDialogElementContent = Partial<{
 export async function expectDialogElement({
   exactTitle,
   bodyText,
+  exactBodyText,
   customClassNames,
   exists,
 }: ExpectDialogElementContent = {}): Promise<void> {
@@ -23,6 +25,9 @@ export async function expectDialogElement({
 
     bodyText !== undefined &&
       (await t.expect(findDialogBodyText(customClassNames)).contains(bodyText));
+
+    exactBodyText !== undefined &&
+      (await t.expect(findDialogBodyText(customClassNames)).eql(exactBodyText));
 
     customClassNames !== undefined &&
       (await t.customActions.expectContainsSubset(
