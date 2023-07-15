@@ -7,6 +7,7 @@ import {
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
+// prettier-ignore
 test(`can create dialog element macros with various title and class name combinations`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
@@ -117,9 +118,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
   await expectDialogElement({
     exactTitle: 'My Title',
     bodyText: 'My content',
-    customClassNames: [
-      'dialog-number-1'
-    ],
+    customClassNames: ['dialog-number-1'],
   });
   await t
     .click(Selector('.passage button.dialog-element-close'))
@@ -132,9 +131,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
   await expectDialogElement({
     exactTitle: 'My Title',
     bodyText: 'My content',
-    customClassNames: [
-      'dialog-number-2'
-    ],
+    customClassNames: ['dialog-number-2'],
   });
 });
 
