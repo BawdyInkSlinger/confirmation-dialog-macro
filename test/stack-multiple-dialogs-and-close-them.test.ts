@@ -7,7 +7,7 @@ import {
 
 fixture.page(`../dist_test/index.html`)(`Dialog Element Macro`);
 
-test(`can stack-multiple-dialogs-and-close-them, top to bottom, while triggering onopen and onclose`, async (t: TestController): Promise<void> => {
+test(`can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose`, async (t: TestController): Promise<void> => {
   await t.setNativeDialogHandler((type, text) => {
     throw new Error(text);
   });

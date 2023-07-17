@@ -1,7 +1,5 @@
 import { Selector, t } from 'testcafe';
 import {
-  closeButton,
-  dialogElementCount,
   expectDialogElement,
 } from './dialog-element-testcafe-utils';
 

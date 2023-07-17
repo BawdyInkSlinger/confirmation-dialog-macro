@@ -1,0 +1,17 @@
+:: Test can open on top of official Sugarcube Dialog UI
+<h1>Test can open on top of official Sugarcube Dialog UI</h1>
+<<button "Open Sugarcube Dialog API">>
+    <<script>>
+        Dialog.setup("Dialog API", "official-dialog-api");
+        Dialog.wiki(Story.get("Sugarcube Dialog Body").processText());
+        Dialog.open();
+    <</script>>
+<</button>>
+
+:: Sugarcube Dialog Body
+<<button "Open simple dialog over Dialog API">>
+    <<set $dialog_number to $dialog_number + 1>>
+    <<dialogelement "On top of sugarcube" `"dialog-number-" + $dialog_number`>>
+        <span>My content</span>
+    <</dialogelement>>
+<</button>>
