@@ -1,0 +1,28 @@
+@mixin animation-mixin($animation-value) {
+  -webkit-animation: $animation-value;
+  -moz-animation: $animation-value;
+  animation: $animation-value;
+}
+
+.macro-dialog-element {
+  position: absolute;
+  top: 50px;
+}
+
+.macro-dialog-element[open] {
+  @include animation-mixin(macro-dialog-element-fade-in 0.2s ease-in forwards);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .8); /* Hack since FF can't animate ::backdrop: https://stackoverflow.com/questions/75313685/animating-dialog-backdrop-in-firefox*/
+  &::backdrop {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes macro-dialog-element-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

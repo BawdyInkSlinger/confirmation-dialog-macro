@@ -20,7 +20,7 @@ Macro.add('dialogelement', {
     const classes = this.args.length > 1 ? this.args.slice(1).flat() : [];
 
     const $dialog = $(document.createElement('dialog'))
-      .addClass(`macro-${this.name} dialog-element`)
+      .addClass(`macro-dialog-element`)
       .css({ padding: '0' /* https://stackoverflow.com/a/72916231/61624 */ })
       .on('click', function (event) {
         if (event.target === this) {

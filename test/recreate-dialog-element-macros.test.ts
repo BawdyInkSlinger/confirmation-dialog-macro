@@ -27,7 +27,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
   });
   await t
     .click(Selector('.passage button.dialog-element-close'))
-    .expect(Selector('.passage .macro-dialogelement.dialog-element').exists)
+    .expect(Selector('.passage .macro-dialog-element.dialog-element').exists)
     .notOk()
     // it re-creates the dialog when you click the button
     .click(Selector('.passage button').withText('Open a dialog'))

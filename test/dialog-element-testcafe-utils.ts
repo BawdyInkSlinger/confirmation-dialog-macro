@@ -70,6 +70,6 @@ function dialogElementBodySelector(customClassNames?: string[]): Selector {
     '.' + [...dialogElementBodyClasses].join('.');
 
   return Selector(
-    `.passage .macro-dialogelement ${classesInCssSelectorFormat}`
+    `.passage .macro-dialog-element ${classesInCssSelectorFormat}`
   );
 }
