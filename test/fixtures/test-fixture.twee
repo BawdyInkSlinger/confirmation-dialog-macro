@@ -27,15 +27,6 @@ Config.passages.nobr = true;
 
 <<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>><br><br>
 
-:: Test can recreate dialog element macros
-<h1>Test can recreate dialog element macros</h1>
-<<button "Open a dialog">>
-    <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "My Title" `"dialog-number-" + $dialog_number`>>
-        My content
-    <</dialogelement>>
-<</button>>
-
 :: Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose
 <h1>Test can stack multiple dialogs and close them, top to bottom, while triggering onopen and onclose</h1>
 <<button "Open Dialog 1">>

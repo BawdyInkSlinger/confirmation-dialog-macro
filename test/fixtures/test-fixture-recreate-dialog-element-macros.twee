@@ -1,0 +1,9 @@
+:: Test can recreate dialog element macros
+<h1>Test can recreate dialog element macros</h1>
+<<button "Open a dialog">>
+    <<set $dialog_number to $dialog_number + 1>>
+    <<dialogelement "My Title" `"dialog-number-" + $dialog_number`>>
+        My content
+    <</dialogelement>>
+<</button>>
+
