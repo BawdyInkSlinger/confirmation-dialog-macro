@@ -1,18 +1,9 @@
 Macro.add('dialogelement', {
   tags: ['onopen', 'onclose'],
   handler: function () {
-    const content = getContent.apply(this);
-    let onOpen = null as string | null;
-    let onClose = null as string | null;
-
-    this.payload.forEach(function (payload, index) {
-        if (payload.name === 'onopen') {
-          onOpen = onOpen ? onOpen + payload.contents : payload.contents;
-        } else {
-          onClose = onClose ? onClose + payload.contents : payload.contents;
-        }
-      }
-    );
+    const content = getContent.call(this);
+    const onOpen = joinTagContents.call(this, 'onopen');
+    const onClose = joinTagContents.call(this, 'onclose');
     const title = this.args.length > 0 ? this.args[0] : '';
     const classes = this.args.length > 1 ? this.args.slice(1).flat() : [];
 
@@ -83,4 +74,19 @@ Macro.add('dialogelement', {
 
 function getContent(this: TwineSugarCube.MacroContext): string {
   return this.payload[0].contents ?? '';
+}
+
+function joinTagContents(
+  this: TwineSugarCube.MacroContext,
+  tagName: string
+): string {
+  return this.payload
+    .map(function (payload) {
+      if (payload.name === tagName) {
+        return payload.contents;
+      } else {
+        return '';
+      }
+    })
+    .join('');
 }
