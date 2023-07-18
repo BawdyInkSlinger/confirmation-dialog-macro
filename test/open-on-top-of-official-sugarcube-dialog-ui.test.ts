@@ -22,7 +22,7 @@ test(`can open on top of official Sugarcube Dialog UI`, async (t: TestController
       )
     );
   await expectDialogElement({
-    exactTitle: 'On top of sugarcube',
+    exactTitle: 'ON TOP OF SUGARCUBE',
     bodyText: 'My content',
     customClassNames: ['dialog-number-1'],
   });

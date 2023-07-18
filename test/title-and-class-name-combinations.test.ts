@@ -58,7 +58,7 @@ test(`can create dialog element macros with various title and class name combina
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
-      exactTitle: 'title',
+      exactTitle: 'TITLE',
       customClassNames: [],
     });
 
@@ -67,7 +67,7 @@ test(`can create dialog element macros with various title and class name combina
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
-      exactTitle: 'title',
+      exactTitle: 'TITLE',
       customClassNames: [],
     });
 
@@ -76,7 +76,7 @@ test(`can create dialog element macros with various title and class name combina
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
-      exactTitle: 'title',
+      exactTitle: 'TITLE',
       customClassNames: ['one-class'],
     });
 
@@ -85,7 +85,7 @@ test(`can create dialog element macros with various title and class name combina
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
-      exactTitle: 'title',
+      exactTitle: 'TITLE',
       customClassNames: ['more', 'than', 'one', 'class'],
     });
 
@@ -94,7 +94,7 @@ test(`can create dialog element macros with various title and class name combina
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
-      exactTitle: 'title',
+      exactTitle: 'TITLE',
       customClassNames: ['some', 'classes'],
       exactBodyText: ''
     });

@@ -6,7 +6,15 @@
 
 .macro-dialog-element {
   position: absolute;
+  max-width: 66rem;
   top: 50px;
+  color: #eee;
+  border-width: 0;
+
+  & > * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 
   &::backdrop {
     opacity: 0;
@@ -15,6 +23,65 @@
 
 .macro-dialog-element[open] {
   @include animation-mixin(macro-dialog-element-fade-in 0.2s ease-in forwards);
+}
+
+.dialog-element-titlebar {
+  background-color: #444;
+  min-height: 24px;
+  position: relative;
+}
+
+.dialog-element-title {
+  margin: 0;
+  padding: 0.2em 3.5em 0.2em 0.5em;
+  font-size: 1.5em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.dialog-element-close {
+  font-family: tme-fa-icons !important;
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  line-height: 1;
+  speak: never;
+  text-rendering: auto;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  font-size: 120%;
+  margin: 0;
+  padding: 0;
+  width: 3.6em;
+  height: 92%;
+  background-color: transparent;
+  border: 1px solid transparent;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  white-space: nowrap;
+}
+
+.dialog-element-body {
+  background-color: #111;
+  border: 1px solid #444;
+  text-align: left;
+  line-height: 1.5;
+  padding: 1em;
+  overflow: auto;
+  min-width: 280px;
+  height: 92%;
+  height: calc(100% - 2.1em);
 }
 
 .macro-dialog-element-backdrop {

@@ -21,7 +21,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
     .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
-    exactTitle: 'My Title',
+    exactTitle: 'MY TITLE',
     bodyText: 'My content',
     customClassNames: ['dialog-number-1'],
   });
@@ -34,7 +34,7 @@ test(`can recreate dialog element macros`, async (t: TestController): Promise<vo
     .expect(dialogElementCount())
     .eql(1);
   await expectDialogElement({
-    exactTitle: 'My Title',
+    exactTitle: 'MY TITLE',
     bodyText: 'My content',
     customClassNames: ['dialog-number-2'],
   });
