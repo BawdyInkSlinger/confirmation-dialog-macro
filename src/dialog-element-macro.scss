@@ -7,14 +7,32 @@
 .macro-dialog-element {
   position: absolute;
   top: 50px;
+
+  &::backdrop {
+    opacity: 0;
+  }
 }
 
 .macro-dialog-element[open] {
   @include animation-mixin(macro-dialog-element-fade-in 0.2s ease-in forwards);
-  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .8); /* Hack since FF can't animate ::backdrop: https://stackoverflow.com/questions/75313685/animating-dialog-backdrop-in-firefox*/
-  &::backdrop {
-    opacity: 0;
-    background: rgba(0, 0, 0, 0);
+}
+
+.macro-dialog-element-backdrop {
+  position: fixed;
+  width: 100dvw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100101; /* Over Sugarcube Dialogs */
+  &.open {
+    @include animation-mixin(
+      macro-dialog-element-backdrop-fade-in 0.2s ease-in forwards
+    );
+  }
+  &.close {
+    @include animation-mixin(
+      macro-dialog-element-backdrop-fade-out 0.2s ease-out forwards
+    );
   }
 }
 
@@ -24,5 +42,23 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes macro-dialog-element-backdrop-fade-in {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+@keyframes macro-dialog-element-backdrop-fade-out {
+  0% {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0);
   }
 }

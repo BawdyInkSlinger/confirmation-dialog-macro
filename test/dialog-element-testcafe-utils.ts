@@ -4,6 +4,10 @@ export function dialogElementCount(): Promise<number> {
   return Selector('dialog').count;
 }
 
+export function backdropCount(): Promise<number> {
+  return Selector('.macro-dialog-element-backdrop').count;
+}
+
 type ExpectDialogElementContent = Partial<{
   exactTitle: string;
   bodyText: string;

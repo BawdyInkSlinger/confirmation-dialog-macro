@@ -60,8 +60,23 @@ Macro.add('dialogelement', {
       });
     }
 
+    const $backdrop = $(document.createElement('div'))
+      .addClass('macro-dialog-element-backdrop')
+      .addClass('open')
+      .on('animationend', (e) => {
+        const animationEvent = e.originalEvent as AnimationEvent | undefined;
+        if (
+          animationEvent?.animationName ===
+          'macro-dialog-element-backdrop-fade-out'
+        ) {
+          $backdrop.remove();
+        }
+      });
+    $(`.passage`).append($backdrop);
+
     $dialog.on('close', () => {
       $dialog.remove();
+      $backdrop.removeClass('open').addClass('close');
     });
 
     pushDialogStack($dialog);

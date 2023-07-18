@@ -1,5 +1,6 @@
 import { Selector, t } from 'testcafe';
 import {
+  backdropCount,
   closeButton,
   dialogElementCount,
   expectDialogElement,
@@ -19,28 +20,28 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
 
   // open dialog 1
   await openDialog(1);
-  await t.expect(dialogElementCount()).eql(1);
+  await t.expect(dialogElementCount()).eql(1).expect(backdropCount()).eql(1);
   await expectDialogElement({
     exactTitle: 'Dialog 1',
     customClassNames: ['dialog-number-1'],
   });
   // open dialog 2
   await openDialog(2);
-  await t.expect(dialogElementCount()).eql(2);
+  await t.expect(dialogElementCount()).eql(2).expect(backdropCount()).eql(2);
   await expectDialogElement({
     exactTitle: 'Dialog 2',
     customClassNames: ['dialog-number-2'],
   });
   // open dialog 3
   await openDialog(3);
-  await t.expect(dialogElementCount()).eql(3);
+  await t.expect(dialogElementCount()).eql(3).expect(backdropCount()).eql(3);
   await expectDialogElement({
     exactTitle: 'Dialog 3',
     customClassNames: ['dialog-number-3'],
   });
   // open dialog 4
   await openDialog(4);
-  await t.expect(dialogElementCount()).eql(4);
+  await t.expect(dialogElementCount()).eql(4).expect(backdropCount()).eql(4);
   await expectDialogElement({
     exactTitle: 'Dialog 4',
     customClassNames: ['dialog-number-4'],
@@ -50,6 +51,8 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
   await t
     .click(Selector('.passage button').withText('Custom close button'))
     .expect(dialogElementCount())
+    .eql(3)
+    .expect(backdropCount())
     .eql(3);
   await expectDialogElement({
     exactTitle: 'Dialog 4',
@@ -61,6 +64,8 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
   await t
     .click(closeButton('dialog-number-3'))
     .expect(dialogElementCount())
+    .eql(2)
+    .expect(backdropCount())
     .eql(2);
   await expectDialogElement({
     exactTitle: 'Dialog 3',
@@ -75,6 +80,8 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
       'offsetY': 1,
     })
     .expect(dialogElementCount())
+    .eql(1)
+    .expect(backdropCount())
     .eql(1);
   await expectDialogElement({
     exactTitle: 'Dialog 2',
@@ -83,7 +90,7 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
   });
 
   // close dialog 1 by pressing escape
-  await t.pressKey('esc').expect(dialogElementCount()).eql(0);
+  await t.pressKey('esc').expect(dialogElementCount()).eql(0).expect(backdropCount()).eql(0);
   await expectDialogElement({
     exactTitle: 'Dialog 1',
     customClassNames: ['dialog-number-1'],
