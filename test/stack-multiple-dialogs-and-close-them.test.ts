@@ -101,12 +101,14 @@ test(`can stack multiple dialogs and close them, top to bottom, while triggering
   await t.expect(Selector('#event-log > p').nth(0).innerText).eql('Opened 1');
   await t.expect(Selector('#event-log > p').nth(1).innerText).eql('Opened 2');
   await t.expect(Selector('#event-log > p').nth(2).innerText).eql('Opened 3');
-  await t.expect(Selector('#event-log > p').nth(3).innerText).eql('Opened 4');
-  await t.expect(Selector('#event-log > p').nth(4).innerText).eql('Closed 4');
-  await t.expect(Selector('#event-log > p').nth(5).innerText).eql('Closed 3');
-  await t.expect(Selector('#event-log > p').nth(6).innerText).eql('Closed 2');
-  await t.expect(Selector('#event-log > p').nth(7).innerText).eql('Closed 1');
-  await t.expect(Selector('#event-log p').count).eql(8);
+  await t.expect(Selector('#event-log > p').nth(3).innerText).eql('Opened 4.1');
+  await t.expect(Selector('#event-log > p').nth(4).innerText).eql('Opened 4.2');
+  await t.expect(Selector('#event-log > p').nth(5).innerText).eql('Closed 4.1');
+  await t.expect(Selector('#event-log > p').nth(6).innerText).eql('Closed 4.2');
+  await t.expect(Selector('#event-log > p').nth(7).innerText).eql('Closed 3');
+  await t.expect(Selector('#event-log > p').nth(8).innerText).eql('Closed 2');
+  await t.expect(Selector('#event-log > p').nth(9).innerText).eql('Closed 1');
+  await t.expect(Selector('#event-log p').count).eql(10);
 });
 
 async function openDialog(dialogElementNumber: number): Promise<void> {

@@ -18,9 +18,13 @@
               <<dialogelement "Dialog 4" `"dialog-number-" + $dialog_number`>>
                 <<button "Custom close button">><<dialogelementclose>><</button>>
               <<onopen>>
-                <<append "#event-log">><p>Opened 4</p><</append>>
+                <<append "#event-log">><p>Opened 4.1</p><</append>>
+              <<onopen>>
+                <<append "#event-log">><p>Opened 4.2</p><</append>>
               <<onclose>>
-                <<append "#event-log">><p>Closed 4</p><</append>>
+                <<append "#event-log">><p>Closed 4.1</p><</append>>
+              <<onclose>>
+                <<append "#event-log">><p>Closed 4.2</p><</append>>
               <</dialogelement>>
               /* End Dialog 4 */
             <</button>>
