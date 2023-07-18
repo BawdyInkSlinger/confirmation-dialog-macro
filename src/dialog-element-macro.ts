@@ -1,12 +1,6 @@
 Macro.add('dialogelement', {
   tags: ['onopen', 'onclose'],
   handler: function () {
-    const content = getContent.call(this);
-    const onOpen = joinTagContents.call(this, 'onopen');
-    const onClose = joinTagContents.call(this, 'onclose');
-    const title = this.args.length > 0 ? this.args[0] : '';
-    const classes = this.args.length > 1 ? this.args.slice(1).flat() : [];
-
     const $dialog = $(document.createElement('dialog'))
       .addClass(`macro-dialog-element`)
       .css({ padding: '0' /* https://stackoverflow.com/a/72916231/61624 */ })
@@ -22,7 +16,7 @@ Macro.add('dialogelement', {
     $dialogTitleBar.append(
       $(document.createElement('h1'))
         .addClass('dialog-element-title')
-        .wiki(title)
+        .wiki(getTitle.call(this))
     );
     $dialogTitleBar.append(
       $(document.createElement('button'))
@@ -35,18 +29,18 @@ Macro.add('dialogelement', {
     $dialog.append($dialogTitleBar);
 
     const $dialogBody = $(document.createElement('div'))
-      .addClass(classes)
+      .addClass(getClasses.call(this))
       .addClass('dialog-element-body')
-      .wiki((onOpen ?? '') + content);
+      .wiki(joinTagContents.call(this, 'onopen'))
+      .wiki(getContent.call(this));
     $dialog.append($dialogBody);
 
     $(`.passage`).append($dialog);
 
-    if (onClose && typeof onClose === 'string' && onClose.trim()) {
-      $dialog.on('close', () => {
-        $.wiki(onClose as string);
-      });
-    }
+    const onClose = joinTagContents.call(this, 'onclose');
+    $dialog.on('close', () => {
+      $.wiki(onClose);
+    });
 
     const $backdrop = $(document.createElement('div'))
       .addClass('macro-dialog-element-backdrop')
@@ -71,6 +65,14 @@ Macro.add('dialogelement', {
     $dialog[0].showModal();
   },
 });
+
+function getTitle(this: TwineSugarCube.MacroContext): string {
+  return this.args.length > 0 ? this.args[0] : '';
+}
+
+function getClasses(this: TwineSugarCube.MacroContext): string[] {
+  return this.args.length > 1 ? this.args.slice(1).flat() : [];
+}
 
 function getContent(this: TwineSugarCube.MacroContext): string {
   return this.payload[0].contents ?? '';
