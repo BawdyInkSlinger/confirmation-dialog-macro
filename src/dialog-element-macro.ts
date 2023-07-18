@@ -1,21 +1,18 @@
 Macro.add('dialogelement', {
   tags: ['onopen', 'onclose'],
   handler: function () {
-    let content = '';
+    const content = getContent.apply(this);
     let onOpen = null as string | null;
     let onClose = null as string | null;
 
     this.payload.forEach(function (payload, index) {
-      if (index === 0) {
-        content = payload.contents;
-      } else {
         if (payload.name === 'onopen') {
           onOpen = onOpen ? onOpen + payload.contents : payload.contents;
         } else {
           onClose = onClose ? onClose + payload.contents : payload.contents;
         }
       }
-    });
+    );
     const title = this.args.length > 0 ? this.args[0] : '';
     const classes = this.args.length > 1 ? this.args.slice(1).flat() : [];
 
@@ -83,3 +80,7 @@ Macro.add('dialogelement', {
     $dialog[0].showModal();
   },
 });
+
+function getContent(this: TwineSugarCube.MacroContext): string {
+  return this.payload[0].contents ?? '';
+}
