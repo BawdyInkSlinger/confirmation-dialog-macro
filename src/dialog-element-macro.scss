@@ -6,8 +6,9 @@
 
 .macro-dialog-element {
   position: absolute;
-  max-width: 66rem;
   top: 50px;
+  margin: 0 auto;
+  max-width: 66rem;
   color: #eee;
   border-width: 0;
 
@@ -29,6 +30,7 @@
   background-color: #444;
   min-height: 24px;
   position: relative;
+  line-height: 1;
 }
 
 .dialog-element-title {
