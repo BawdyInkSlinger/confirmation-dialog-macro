@@ -64,7 +64,7 @@ Macro.add('dialogelement', {
       $backdrop.removeClass('open').addClass('close');
     });
 
-    pushDialogStack($dialog);
+    DialogStack.push($dialog);
     $dialog[0].showModal();
   },
 });
