@@ -106,3 +106,36 @@ Closes the topmost dialog.
 	<</dialogelement>>
 <</link>>
 ```
+
+### JavaScript
+
+The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call `openDialogElement`:
+
+```ts
+type TwineScript = string;
+function openDialogElement(
+  title: TwineScript,
+  classes: string[],
+  content: TwineScript,
+  onOpen: TwineScript = '',
+  onClose: TwineScript = ''
+): void
+```
+
+**Usage**:
+
+```js
+openDialogElement('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
+```
+
+To close the topmost Dialog Element, call `closeDialogElement`:
+
+```ts
+function closeDialogElement(): void
+```
+
+**Usage**:
+
+```js
+closeDialogElement()
+```

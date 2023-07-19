@@ -1,7 +1,9 @@
 Macro.add('dialogelementclose', {
   skipArgs: true,
-  handler: function closeDialogElement() {
-    const $dialog = DialogElementMacroStack.pop();
-    $dialog[0].close();
-  },
+  handler: closeDialogElement,
 });
+
+function closeDialogElement(): void {
+  const $dialog = DialogElementMacroStack.pop();
+  $dialog[0].close();
+}
