@@ -16,7 +16,7 @@ Macro.add('dialogelement', {
     $dialogTitleBar.append(
       $(document.createElement('h1'))
         .addClass('dialog-element-title')
-        .wiki(getTitle.call(this))
+        .wiki(DialogElementArgumentParser.getTitle.call(this))
     );
     $dialogTitleBar.append(
       $(document.createElement('button'))
@@ -29,15 +29,18 @@ Macro.add('dialogelement', {
     $dialog.append($dialogTitleBar);
 
     const $dialogBody = $(document.createElement('div'))
-      .addClass(getClasses.call(this))
+      .addClass(DialogElementArgumentParser.getClasses.call(this))
       .addClass('dialog-element-body')
-      .wiki(joinTagContents.call(this, 'onopen'))
-      .wiki(getContent.call(this));
+      .wiki(DialogElementArgumentParser.joinTagContents.call(this, 'onopen'))
+      .wiki(DialogElementArgumentParser.getContent.call(this));
     $dialog.append($dialogBody);
 
     $(`.passage`).append($dialog);
 
-    const onClose = joinTagContents.call(this, 'onclose');
+    const onClose = DialogElementArgumentParser.joinTagContents.call(
+      this,
+      'onclose'
+    );
     $dialog.on('close', () => {
       $.wiki(onClose);
     });
@@ -65,30 +68,3 @@ Macro.add('dialogelement', {
     $dialog[0].showModal();
   },
 });
-
-function getTitle(this: TwineSugarCube.MacroContext): string {
-  return this.args.length > 0 ? this.args[0] : '';
-}
-
-function getClasses(this: TwineSugarCube.MacroContext): string[] {
-  return this.args.length > 1 ? this.args.slice(1).flat() : [];
-}
-
-function getContent(this: TwineSugarCube.MacroContext): string {
-  return this.payload[0].contents ?? '';
-}
-
-function joinTagContents(
-  this: TwineSugarCube.MacroContext,
-  tagName: string
-): string {
-  return this.payload
-    .map(function (payload) {
-      if (payload.name === tagName) {
-        return payload.contents;
-      } else {
-        return '';
-      }
-    })
-    .join('');
-}
