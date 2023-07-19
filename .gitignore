@@ -1,5 +1,6 @@
 node_modules
 dist
+dist_compiled
 dist_test
 screenshots
 watch.sh.pids

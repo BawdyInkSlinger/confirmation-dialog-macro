@@ -1,3 +1,6 @@
+import { DialogElementArgumentParser } from "./dialog-element-argument-parser";
+import { DialogElementMacroStack } from "./dialog-stack";
+
 Macro.add('dialogelement', {
   tags: ['onopen', 'onclose'],
   handler: function () {
@@ -18,7 +21,7 @@ Macro.add('dialogelement', {
 });
 
 type TwineScript = string;
-function openDialogElement(
+export function openDialogElement(
   title: TwineScript,
   classes: string[],
   content: TwineScript,

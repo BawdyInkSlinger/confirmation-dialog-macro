@@ -1,4 +1,4 @@
-const DialogElementMacroStack = {
+export const DialogElementMacroStack = {
   push: function ($dialog: JQuery<HTMLDialogElement>) {
     if (this.dialogStackExists()) {
       State.temporary.dialog_element_macro_stack = [];

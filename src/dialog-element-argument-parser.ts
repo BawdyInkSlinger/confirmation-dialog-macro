@@ -1,4 +1,4 @@
-const DialogElementArgumentParser = {
+export const DialogElementArgumentParser = {
   getTitle: function (this: TwineSugarCube.MacroContext): string {
     return this.args.length > 0 ? this.args[0] : '';
   },
