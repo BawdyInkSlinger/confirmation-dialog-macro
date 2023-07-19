@@ -5,6 +5,14 @@ Sugarcube provides a built in [Dialog API](http://www.motoslave.net/sugarcube/2/
 
 This macro API and documentation was shamelessly stolen from https://github.com/ChapelR/custom-macros-for-sugarcube-2#dialog-api-macros If you don't need multiple dialog boxes, consider using this macro library instead.
 
+# Installation
+
+You can download the releases from the github [Releases section](https://github.com/BawdyInkSlinger/dialog-element-macro/releases):
+
+![Image of github release section](./releases.png)
+
+The `*.map` files are optional.
+
 ---
 
 ### Macro: `<<dialogelement>>`
