@@ -13,6 +13,8 @@ You can download the releases from the github [Releases section](https://github.
 
 The `*.map` files are optional.
 
+Copy the *contents* of `dialog-element-macro.js` into your `[script]` passage. Copy the `dialog-element-macro.css` *file* into your project.
+
 ---
 
 ### Macro: `<<dialogelement>>`
