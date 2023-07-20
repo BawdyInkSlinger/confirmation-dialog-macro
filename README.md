@@ -109,7 +109,7 @@ Closes the topmost dialog.
 
 ### JavaScript
 
-The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call `openDialogElement`:
+The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.openDialogElement` function. It has this signature:
 
 ```ts
 type TwineScript = string;
@@ -125,10 +125,10 @@ function openDialogElement(
 **Usage**:
 
 ```js
-openDialogElement('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
+DialogElementMacro.openDialogElement('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
-To close the topmost Dialog Element, call `closeDialogElement`:
+To close the topmost Dialog Element, call the `DialogElementMacro.closeDialogElement` function. It has this signature:
 
 ```ts
 function closeDialogElement(): void
@@ -137,5 +137,5 @@ function closeDialogElement(): void
 **Usage**:
 
 ```js
-closeDialogElement()
+DialogElementMacro.closeDialogElement()
 ```
