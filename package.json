@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "main": "dist/dialog-element-macro.js",
   "scripts": {
-    "compile-typescript": "echo \"compile ts\" && tsc && tsc && rollup -c && cp dist_compiled/*.d.ts dist/",
+    "compile-typescript": "echo \"compile ts\" && rollup -c --failAfterWarnings",
     "compile-sass": "echo \"compile-sass\" && sass src:dist",
     "compile-sass-then-tweego": "echo \"compile-sass-then-tweego\" && npm run compile-sass && npm run tweego",
     "watch-sass-files": "echo \"watch-sass-files\" && onchange --verbose --poll 100 --await-write-finish 3000 --kill \"src/dialog-element-macro.scss\" -- npm run compile-sass-then-tweego",
