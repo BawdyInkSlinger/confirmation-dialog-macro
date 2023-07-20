@@ -1,4 +1,4 @@
-import alias from '@rollup/plugin-alias';
+import ts from "rollup-plugin-ts";
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 
@@ -10,6 +10,9 @@ const plugins = () => [
   commonjs({
     include: /node_modules/,
   }),
+  ts({
+    
+  })
 ];
 
 export default [
