@@ -1,5 +1,5 @@
-import { DialogElementArgumentParser } from "./dialog-element-argument-parser";
-import { DialogElementMacroStack } from "./dialog-stack";
+import { DialogElementArgumentParser } from './dialog-element-argument-parser';
+import { DialogElementMacroStack } from './dialog-stack';
 
 Macro.add('dialogelement', {
   tags: ['onopen', 'onclose'],
@@ -20,27 +20,16 @@ Macro.add('dialogelement', {
   },
 });
 
-type TwineScript = string;
+type MarkupString = string;
+type ContentCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
+type OnOpenCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
+type OnCloseCallback = () => void;
 export function open(
-  title: TwineScript,
+  title: MarkupString,
   classes: string[],
-  content: TwineScript,
-  onOpen: TwineScript,
-  onClose: TwineScript
-): void;
-export function open(
-  title: TwineScript,
-  classes: string[],
-  callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
-  onOpen: TwineScript,
-  onClose: TwineScript
-): void;
-export function open(
-  title: TwineScript,
-  classes: string[],
-  contentOrCallback: TwineScript | (($dialogElementBody: JQuery<HTMLElement>) => void),
-  onOpen: TwineScript = '',
-  onClose: TwineScript = ''
+  contentOrCallback: MarkupString | ContentCallback,
+  onOpen: MarkupString | OnOpenCallback = '',
+  onClose: MarkupString | OnCloseCallback = ''
 ): void {
   const $dialog = $(document.createElement('dialog'))
     .addClass(`macro-dialog-element`)
@@ -69,12 +58,17 @@ export function open(
 
   const $dialogBody = $(document.createElement('div'))
     .addClass(classes)
-    .addClass('dialog-element-body')
-    .wiki(onOpen);
-  if (typeof contentOrCallback === "string") {
+    .addClass('dialog-element-body');
+  if (typeof onOpen === 'string') {
+    $dialogBody.wiki(onOpen);
+  } else {
+    onOpen($dialogBody);
+  }
+
+  if (typeof contentOrCallback === 'string') {
     $dialogBody.wiki(contentOrCallback);
   } else {
-    contentOrCallback($dialogBody)
+    contentOrCallback($dialogBody);
   }
 
   $dialog.append($dialogBody);
@@ -82,7 +76,11 @@ export function open(
   $(`.passage`).append($dialog);
 
   $dialog.on('close', () => {
-    $.wiki(onClose);
+    if (typeof onClose === 'string') {
+      $dialogBody.wiki(onClose);
+    } else {
+      onClose();
+    }
   });
 
   const $backdrop = $(document.createElement('div'))

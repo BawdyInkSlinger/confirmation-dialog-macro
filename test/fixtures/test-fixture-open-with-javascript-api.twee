@@ -9,16 +9,25 @@
   <</script>> 
 <</button>>
 
-<<button "Open a dialog by passing content as callback">>
+<<button "Open a dialog by passing callbacks">>
   <<script>> 
-    DialogElementMacro.open(`Content as callback`, [], ($body) => {
-      $body.append(`<span>CB Content</span>`);
-      $body.append($(document.createElement('button'))
-        .text("Cancel")
-        .ariaClick(() => {
-          DialogElementMacro.close();
-        }));
-    });
+    DialogElementMacro.open(`Callbacks`, [], 
+      ($body) => {
+        $body.append(`<span>CB Content</span>`);
+        $body.append($(document.createElement('button'))
+          .text("Cancel")
+          .ariaClick(() => {
+            DialogElementMacro.close();
+          }));
+      },
+      ($body) => {
+        $(`#event-log`).append(`<p>Opened</p>`)
+      },
+      () => {
+        $(`#event-log`).append(`<p>Closed</p>`)
+      });
   <</script>>
 <</button>>
 
+<h2>Event Log</h2>
+<div id="event-log"></div>

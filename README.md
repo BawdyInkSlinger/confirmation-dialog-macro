@@ -10,9 +10,9 @@ You can download the releases from the github [Releases section](https://github.
 
 ![Image of github release section](./releases.png)
 
-The `*.map` files are optional.
+Copy the `dialog-element-macro.js` and `dialog-element-macro.css` files into your project source directory. 
 
-Copy the `dialog-element-macro.js` file into your source directory or paste the *contents* of it into your `[script]` passage. Copy the `dialog-element-macro.css` *file* into your project.
+The `*.map` and `dialog-element-macro.d.ts` files are optional.
 
 ---
 
@@ -108,61 +108,71 @@ Closes the topmost dialog.
 <</link>>
 ```
 
-### JavaScript
-The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.open` function. This function is overloaded, meaning that it has multiple signatures. 
+# JavaScript
+The Dialog Element Macro exposes JavaScript functions that can be called directly. 
 
-1. The `content` can be passed as a string:
+### `DialogElementMacro.open`
 
-  ```ts
-  type TwineScript = string;
-  function open(
-    title: TwineScript,
-    classes: string[],
-    content: TwineScript,
-    onOpen: TwineScript = '',
-    onClose: TwineScript = ''
-  ): void
-  ```
-2. The `content` is a callback function that's passed a `jQuery` object of the dialog body (i.e., the `.dialog-element-body` HTML element of the dialog box):
-
-  ```ts
-  type TwineScript = string;
-  function open(
-    title: TwineScript,
-    classes: string[],
-    callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
-    onOpen?: TwineScript,
-    onClose?: TwineScript
-  ): void;
-  ```
+The `DialogElementMacro.open` function opens a dialog box. This function can be called in multiple ways:
 
 **Usage**:
 
-Passing `content` as a string: 
+Passing `content`, `onOpen`, and/or `onClose` as markup strings:
 ```js
 DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
-Passing `content` as a callback: 
+Passing `content`, `onOpen`, and/or `onClose` as callback functions:
 ```js
-DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'], ($body) => {
-  $body.append(`<span>CB Content</span>`);
-  $body.append($(document.createElement('button'))
-    .text("Cancel")
-    .ariaClick(() => {
-      DialogElementMacro.close();
-    }));
-  }, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
+DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'],
+  ($body) => {
+    $body.append(`<span>CB Content</span>`);
+    $body.append($(document.createElement('button'))
+      .text("Cancel")
+      .ariaClick(() => {
+        DialogElementMacro.close();
+      }));
+    }, 
+    ($body) => {
+      $(`#event-log`).append(`<p>Opened</p>`)
+    },
+    () => {
+      $(`#event-log`).append(`<p>Closed</p>`)
+    });
 ```
 
-To close the topmost Dialog Element, call the `DialogElementMacro.close` function. It has this signature:
+**Formal Syntax**:
+
+The `DialogElementMacro.open` function is formally defined as:
 
 ```ts
-function close(): void
+type MarkupString = string;
+type ContentCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
+type OnOpenCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
+type OnCloseCallback = () => void;
+export function open(
+  title: MarkupString,
+  classes: string[],
+  contentOrCallback: MarkupString | ContentCallback,
+  onOpen: MarkupString | OnOpenCallback = '',
+  onClose: MarkupString | OnCloseCallback = ''
+): void
 ```
+
+It's not important to fully understand this syntax; the key take away is the last three parameters can be passed as markup strings or callback functions. Also, the last two parameters are optional.
+
+### `DialogElementMacro.close`
+
+To close the topmost Dialog Element, call `DialogElementMacro.close`.
 
 **Usage**:
 
-```js
-DialogElementMacro.close()
+```html
+<<button "Close the topmost dialog box">><<run DialogElementMacro.close()>><</button>>
+```
+
+**Formal Syntax**:
+
+```ts
+function close(): void
 ```

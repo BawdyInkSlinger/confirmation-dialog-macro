@@ -1,23 +1,19 @@
 export {};
 
-type TwineScript = string;
+type MarkupString = string;
+type ContentCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
+type OnOpenCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
+type OnCloseCallback = () => void;
 declare global {
   interface Window {
     DialogElementMacro: {
       open(
-        title: TwineScript,
+        title: MarkupString,
         classes: string[],
-        content: TwineScript,
-        onOpen?: TwineScript,
-        onClose?: TwineScript
-      ): void;
-      open(
-        title: TwineScript,
-        classes: string[],
-        callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
-        onOpen?: TwineScript,
-        onClose?: TwineScript
-      ): void;
+        contentOrCallback: MarkupString | ContentCallback,
+        onOpen: MarkupString | OnOpenCallback,
+        onClose: MarkupString | OnCloseCallback
+      ): void
       close(): void;
     };
   }
