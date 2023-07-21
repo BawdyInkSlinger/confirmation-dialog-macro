@@ -150,19 +150,19 @@ DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'], ($body) => {
   $body.append($(document.createElement('button'))
     .text("Cancel")
     .ariaClick(() => {
-      DialogElementMacro.closeDialogElement();
+      DialogElementMacro.close();
     }));
   }, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
-To close the topmost Dialog Element, call the `DialogElementMacro.closeDialogElement` function. It has this signature:
+To close the topmost Dialog Element, call the `DialogElementMacro.close` function. It has this signature:
 
 ```ts
-function closeDialogElement(): void
+function close(): void
 ```
 
 **Usage**:
 
 ```js
-DialogElementMacro.closeDialogElement()
+DialogElementMacro.close()
 ```

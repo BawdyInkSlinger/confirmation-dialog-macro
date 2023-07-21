@@ -5,7 +5,7 @@
     DialogElementMacro.open(
       `Content as string`, 
       [], 
-      `<span>S Content</span><<button "Cancel">><<run DialogElementMacro.closeDialogElement()>><</button>>`)
+      `<span>S Content</span><<button "Cancel">><<run DialogElementMacro.close()>><</button>>`)
   <</script>> 
 <</button>>
 
@@ -16,7 +16,7 @@
       $body.append($(document.createElement('button'))
         .text("Cancel")
         .ariaClick(() => {
-          DialogElementMacro.closeDialogElement();
+          DialogElementMacro.close();
         }));
     });
   <</script>>

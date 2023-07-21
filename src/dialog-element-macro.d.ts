@@ -18,7 +18,7 @@ declare global {
         onOpen?: TwineScript,
         onClose?: TwineScript
       ): void;
-      closeDialogElement(): void;
+      close(): void;
     };
   }
 }

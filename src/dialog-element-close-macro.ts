@@ -2,10 +2,10 @@ import { DialogElementMacroStack } from "./dialog-stack";
 
 Macro.add('dialogelementclose', {
   skipArgs: true,
-  handler: closeDialogElement,
+  handler: close,
 });
 
-export function closeDialogElement(): void {
+export function close(): void {
   const $dialog = DialogElementMacroStack.pop();
   $dialog[0].close();
 }
