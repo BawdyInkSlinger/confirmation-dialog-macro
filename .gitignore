@@ -4,4 +4,3 @@ dist_compiled
 dist_test
 screenshots
 watch.sh.pids
-src/**/*.d.ts
