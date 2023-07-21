@@ -1,0 +1,24 @@
+:: Test can open with javascript api
+<h1>Test can open with javascript api</h1>
+<<button "Open a dialog by passing content as string">>
+  <<script>> 
+    DialogElementMacro.openDialogElement(
+      `Content as string`, 
+      [], 
+      `<span>S Content</span><<button "Cancel">><<run DialogElementMacro.closeDialogElement()>><</button>>`)
+  <</script>> 
+<</button>>
+
+<<button "Open a dialog by passing content as callback">>
+  <<script>> 
+    DialogElementMacro.openDialogElement(`Content as callback`, [], ($body) => {
+      $body.append(`<span>CB Content</span>`);
+      $body.append($(document.createElement('button'))
+        .text("Cancel")
+        .ariaClick(() => {
+          DialogElementMacro.closeDialogElement();
+        }));
+    });
+  <</script>>
+<</button>>
+

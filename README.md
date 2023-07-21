@@ -109,23 +109,50 @@ Closes the topmost dialog.
 ```
 
 ### JavaScript
-The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.openDialogElement` function. It has this signature:
+The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.openDialogElement` function. This function is overloaded, meaning that it has multiple signatures. 
 
-```ts
-type TwineScript = string;
-function openDialogElement(
-  title: TwineScript,
-  classes: string[],
-  content: TwineScript,
-  onOpen: TwineScript = '',
-  onClose: TwineScript = ''
-): void
-```
+1. The `content` can be passed as a string:
+
+  ```ts
+  type TwineScript = string;
+  function openDialogElement(
+    title: TwineScript,
+    classes: string[],
+    content: TwineScript,
+    onOpen: TwineScript = '',
+    onClose: TwineScript = ''
+  ): void
+  ```
+2. The `content` is a callback function that's passed a `jQuery` object of the dialog body (i.e., the `.dialog-element-body` HTML element of the dialog box):
+
+  ```ts
+  type TwineScript = string;
+  function openDialogElement(
+    title: TwineScript,
+    classes: string[],
+    callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
+    onOpen?: TwineScript,
+    onClose?: TwineScript
+  ): void;
+  ```
 
 **Usage**:
 
+Passing `content` as a string: 
 ```js
 DialogElementMacro.openDialogElement('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
+```
+
+Passing `content` as a callback: 
+```js
+DialogElementMacro.openDialogElement('Character Sheet', ['char-sheet', 'stats'], ($body) => {
+  $body.append(`<span>CB Content</span>`);
+  $body.append($(document.createElement('button'))
+    .text("Cancel")
+    .ariaClick(() => {
+      DialogElementMacro.closeDialogElement();
+    }));
+  }, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
 To close the topmost Dialog Element, call the `DialogElementMacro.closeDialogElement` function. It has this signature:

@@ -8,6 +8,7 @@ export default [
       file: 'dist/dialog-element-macro.js',
       name: 'DialogElementMacro',
       sourcemap: true,
+      footer: 'window.DialogElementMacro = DialogElementMacro;'
     },
     plugins: [typescript()],
   },

@@ -25,6 +25,20 @@ export function openDialogElement(
   title: TwineScript,
   classes: string[],
   content: TwineScript,
+  onOpen: TwineScript,
+  onClose: TwineScript
+): void;
+export function openDialogElement(
+  title: TwineScript,
+  classes: string[],
+  callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
+  onOpen: TwineScript,
+  onClose: TwineScript
+): void;
+export function openDialogElement(
+  title: TwineScript,
+  classes: string[],
+  contentOrCallback: TwineScript | (($dialogElementBody: JQuery<HTMLElement>) => void),
   onOpen: TwineScript = '',
   onClose: TwineScript = ''
 ): void {
@@ -56,8 +70,13 @@ export function openDialogElement(
   const $dialogBody = $(document.createElement('div'))
     .addClass(classes)
     .addClass('dialog-element-body')
-    .wiki(onOpen)
-    .wiki(content);
+    .wiki(onOpen);
+  if (typeof contentOrCallback === "string") {
+    $dialogBody.wiki(contentOrCallback);
+  } else {
+    contentOrCallback($dialogBody)
+  }
+
   $dialog.append($dialogBody);
 
   $(`.passage`).append($dialog);
