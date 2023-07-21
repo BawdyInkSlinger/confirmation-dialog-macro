@@ -6,14 +6,13 @@ Sugarcube provides a built in [Dialog API](http://www.motoslave.net/sugarcube/2/
 This macro API and documentation was shamelessly stolen from https://github.com/ChapelR/custom-macros-for-sugarcube-2#dialog-api-macros If you don't need multiple dialog boxes, consider using this macro library instead.
 
 # Installation
-
 You can download the releases from the github [Releases section](https://github.com/BawdyInkSlinger/dialog-element-macro/releases):
 
 ![Image of github release section](./releases.png)
 
 The `*.map` files are optional.
 
-Copy the *contents* of `dialog-element-macro.js` into your `[script]` passage. Copy the `dialog-element-macro.css` *file* into your project.
+Copy the `dialog-element-macro.js` file into your source directory or paste the *contents* of it into your `[script]` passage. Copy the `dialog-element-macro.css` *file* into your project.
 
 ---
 
@@ -110,7 +109,6 @@ Closes the topmost dialog.
 ```
 
 ### JavaScript
-
 The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.openDialogElement` function. It has this signature:
 
 ```ts
