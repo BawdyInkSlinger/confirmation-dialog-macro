@@ -18,7 +18,7 @@
     "watch-cleanup": "echo \"watch-cleanup\" && ./watch-cleanup.sh",
     "lint": "echo \"lint\" && eslint 'src/**' --fix",
     "build": "npm run compile-typescript && npm run compile-twine",
-    "test": "npm run build && testcafe 'test/**.ts'"
+    "test": "jasmine -- --stack-trace-limit=100 && npm run build && testcafe 'test/**.ts'"
   },
   "keywords": [],
   "author": {
@@ -29,6 +29,7 @@
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",
+    "@types/jasmine": "^4.3.1",
     "@types/jquery": "^3.5.16",
     "@types/node": "^18.15.11",
     "@types/sinon": "^10.0.13",
@@ -47,6 +48,7 @@
     "rollup": "^3.2.2",
     "sinon": "^15.0.3",
     "testcafe": "^3.0.1",
+    "jasmine": "^4.6.0",
     "testcafe-reporter-spec-time": "^4.0.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
