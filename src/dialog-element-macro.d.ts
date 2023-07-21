@@ -13,7 +13,7 @@ declare global {
         contentOrCallback: MarkupString | ContentCallback,
         onOpen?: MarkupString | OnOpenCallback,
         onClose?: MarkupString | OnCloseCallback
-      ): void
+      ): void;
       close(): void;
     };
   }
