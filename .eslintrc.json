@@ -7,13 +7,12 @@
   "extends": [
     "eslint:recommended",
     "prettier",
-    "plugin:testcafe/recommended"
+    "plugin:testcafe/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
-    "State": "writable",
-    "setup": "writable"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -27,54 +26,42 @@
     "@typescript-eslint",
     "testcafe"
   ],
+  "files": [
+    "**/*.ts"
+  ],
   "rules": {
     "quotes": [
       "off"
     ],
     "no-plusplus": [
       "off"
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      2
+    ],
+    "@typescript-eslint/no-floating-promises": [
+      2
+    ],
+    "@typescript-eslint/no-empty-function": [
+      "off"
+    ],
+    "@typescript-eslint/camelcase": [
+      "off"
+    ],
+    "@typescript-eslint/triple-slash-reference": [
+      "off"
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "off"
+    ],
+    "@typescript-eslint/no-non-null-assertion": [
+      "off"
+    ],
+    "@typescript-eslint/no-non-null-asserted-optional-chain": [
+      "off"
+    ],
+    "prefer-const": [
+      "warn"
     ]
-  },
-  "ignorePatterns": [
-    "tsc/**/*.js"
-  ],
-  "overrides": [
-    {
-      "files": [
-        "**/*.ts"
-      ],
-      "extends": [
-        "plugin:@typescript-eslint/recommended"
-      ],
-      "rules": {
-        "@typescript-eslint/no-misused-promises": [
-          2
-        ],
-        "@typescript-eslint/no-floating-promises": [
-          2
-        ],
-        "@typescript-eslint/no-empty-function": [
-          "off"
-        ],
-        "@typescript-eslint/camelcase": [
-          "off"
-        ],
-        "@typescript-eslint/triple-slash-reference": [
-          "off"
-        ],
-        "@typescript-eslint/no-unused-vars": [
-          "off"
-        ],
-        "@typescript-eslint/no-non-null-assertion": [
-          "off"
-        ],
-        "@typescript-eslint/no-non-null-asserted-optional-chain": [
-          "off"
-        ],
-        "prefer-const": [
-          "warn"
-        ]
-      }
-    }
-  ]
+  }
 }

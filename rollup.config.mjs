@@ -1,10 +1,4 @@
-import ts from "rollup-plugin-ts";
-
-const plugins = () => [
-  ts({
-    transpiler: "typescript"
-  })
-];
+import typescript from '@rollup/plugin-typescript';
 
 export default [
   {
@@ -15,6 +9,6 @@ export default [
       name: 'DialogElementMacro',
       sourcemap: true,
     },
-    plugins: plugins(),
+    plugins: [typescript()],
   },
 ];

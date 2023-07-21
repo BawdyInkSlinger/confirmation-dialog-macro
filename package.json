@@ -3,8 +3,9 @@
   "productName": "dialog-element-macro",
   "version": "0.0.1",
   "main": "dist/dialog-element-macro.js",
+  "types": "src/dialog-element-macro.d.ts",
   "scripts": {
-    "compile-typescript": "echo \"compile ts\" && rollup -c --failAfterWarnings",
+    "compile-typescript": "echo \"compile ts\" && rollup -c --failAfterWarnings && cp src/*.d.ts dist/",
     "compile-sass": "echo \"compile-sass\" && sass src:dist",
     "compile-sass-then-tweego": "echo \"compile-sass-then-tweego\" && npm run compile-sass && npm run tweego",
     "watch-sass-files": "echo \"watch-sass-files\" && onchange --verbose --poll 100 --await-write-finish 3000 --kill \"src/dialog-element-macro.scss\" -- npm run compile-sass-then-tweego",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.2",
     "@types/jquery": "^3.5.16",
     "@types/node": "^18.15.11",
     "@types/sinon": "^10.0.13",
@@ -43,7 +45,6 @@
     "npm-run-all": "^4.1.2",
     "onchange": "^7.1.0",
     "rollup": "^3.2.2",
-    "rollup-plugin-ts": "^3.2.0",
     "sinon": "^15.0.3",
     "testcafe": "^3.0.1",
     "testcafe-reporter-spec-time": "^4.0.0",
