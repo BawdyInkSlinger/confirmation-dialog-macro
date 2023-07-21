@@ -11,8 +11,8 @@ declare global {
         title: MarkupString,
         classes: string[],
         contentOrCallback: MarkupString | ContentCallback,
-        onOpen: MarkupString | OnOpenCallback,
-        onClose: MarkupString | OnCloseCallback
+        onOpen?: MarkupString | OnOpenCallback,
+        onClose?: MarkupString | OnCloseCallback
       ): void
       close(): void;
     };
