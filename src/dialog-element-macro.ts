@@ -16,26 +16,26 @@ Macro.add('dialogelement', {
       'onclose'
     );
 
-    openDialogElement(title, classes, content, onOpen, onClose);
+    open(title, classes, content, onOpen, onClose);
   },
 });
 
 type TwineScript = string;
-export function openDialogElement(
+export function open(
   title: TwineScript,
   classes: string[],
   content: TwineScript,
   onOpen: TwineScript,
   onClose: TwineScript
 ): void;
-export function openDialogElement(
+export function open(
   title: TwineScript,
   classes: string[],
   callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
   onOpen: TwineScript,
   onClose: TwineScript
 ): void;
-export function openDialogElement(
+export function open(
   title: TwineScript,
   classes: string[],
   contentOrCallback: TwineScript | (($dialogElementBody: JQuery<HTMLElement>) => void),

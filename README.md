@@ -3,7 +3,7 @@ This set of [sugarcube](http://www.motoslave.net/sugarcube/2/docs/) [macros](htt
 
 Sugarcube provides a built in [Dialog API](http://www.motoslave.net/sugarcube/2/docs/#dialog-api), but it is limited to showing one dialog box at a time.
 
-This macro API and documentation was shamelessly stolen from https://github.com/ChapelR/custom-macros-for-sugarcube-2#dialog-api-macros If you don't need multiple dialog boxes, consider using this macro library instead.
+This macro API and documentation was shamelessly stolen from https://twinelab.net/custom-macros-for-sugarcube-2/#/dialog-api-macro-set If you don't need multiple dialog boxes, consider using this macro library instead.
 
 # Installation
 You can download the releases from the github [Releases section](https://github.com/BawdyInkSlinger/dialog-element-macro/releases):
@@ -109,13 +109,13 @@ Closes the topmost dialog.
 ```
 
 ### JavaScript
-The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.openDialogElement` function. This function is overloaded, meaning that it has multiple signatures. 
+The Dialog Element Macro exposes functions that can be called directly. To open a Dialog Element, call the `DialogElementMacro.open` function. This function is overloaded, meaning that it has multiple signatures. 
 
 1. The `content` can be passed as a string:
 
   ```ts
   type TwineScript = string;
-  function openDialogElement(
+  function open(
     title: TwineScript,
     classes: string[],
     content: TwineScript,
@@ -127,7 +127,7 @@ The Dialog Element Macro exposes functions that can be called directly. To open 
 
   ```ts
   type TwineScript = string;
-  function openDialogElement(
+  function open(
     title: TwineScript,
     classes: string[],
     callback: ($dialogElementBody: JQuery<HTMLElement>) => void,
@@ -140,12 +140,12 @@ The Dialog Element Macro exposes functions that can be called directly. To open 
 
 Passing `content` as a string: 
 ```js
-DialogElementMacro.openDialogElement('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
+DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
 Passing `content` as a callback: 
 ```js
-DialogElementMacro.openDialogElement('Character Sheet', ['char-sheet', 'stats'], ($body) => {
+DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'], ($body) => {
   $body.append(`<span>CB Content</span>`);
   $body.append($(document.createElement('button'))
     .text("Cancel")

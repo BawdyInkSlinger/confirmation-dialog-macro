@@ -1,2 +1,2 @@
 export { closeDialogElement } from "./dialog-element-close-macro";
-export { openDialogElement } from "./dialog-element-macro";
+export { open } from "./dialog-element-macro";
