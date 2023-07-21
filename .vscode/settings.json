@@ -4,6 +4,7 @@
     "editor.tabSize": 2,
     "prettier.jsxSingleQuote": true,
     "prettier.quoteProps": "preserve",
+    "scss.lint.unknownProperties" : "ignore",
     "twee3LanguageTools.directories.include": [
       "test/**"
     ],
