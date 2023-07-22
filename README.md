@@ -1,6 +1,8 @@
 # Dialog Element Macro
 This set of [sugarcube](http://www.motoslave.net/sugarcube/2/docs/) [macros](http://www.motoslave.net/sugarcube/2/docs/#macro-api) allow you to open multiple modal dialog boxes at the same time.
 
+![Animated GIF of a save/load dialog with a confirmation dialog before overwriting/deleting a save.](./demo.gif)
+
 Sugarcube provides a built in [Dialog API](http://www.motoslave.net/sugarcube/2/docs/#dialog-api), but it is limited to showing one dialog box at a time.
 
 This macro API and documentation was shamelessly stolen from https://twinelab.net/custom-macros-for-sugarcube-2/#/dialog-api-macro-set If you don't need multiple dialog boxes, consider using this macro library instead.
