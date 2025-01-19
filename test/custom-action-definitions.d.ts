@@ -2,9 +2,9 @@ import 'testcafe';
 
 declare global {
   interface CustomActions {
-    expectContainsSubset: (
-      set: unknown[] | Promise<unknown[]>,
-      subset: unknown[] | Promise<unknown[]>
+    expectSetContainsSubset: (
+      set: unknown | unknown[] | Promise<unknown[]>,
+      subset: unknown | unknown[] | Promise<unknown[]>,
     ) => TestControllerPromise;
   }
 }

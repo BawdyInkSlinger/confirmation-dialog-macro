@@ -20,20 +20,21 @@ The `*.map` and `dialog-element-macro.d.ts` files are optional.
 
 ### Macro: `<<dialogelement>>`
 
-**Syntax**: `<<dialogelement [title] [classList]>> <</dialogelement>>`
+**Syntax**: `<<dialogelement [title] [id] [classList]>> <</dialogelement>>`
 
 The `<<dialogelement>>` macro creates a new dialog box with an optional title and an optional list of classes for styling. The content between the macro tags is parsed and appended to the dialog box's body. You will generally want to pair this with some type of interaction, like a link or button. You can use the child tags `<<onopen>>` and `<<onclose>>` to run TwineScript code when the dialog is opened and closed (see below).
 
 **Arguments**:
 
 * **title**: (optional) A title to appear at the top of the dialog box. If you want to omit a title but include classes, this argument can be an empty string (`''`).
+* **id**: (optional) An id attribute value, e.g., `'my-id'`. This id will be added the dialog's `<dialog>` element.
 * **classList**: (optional) A string of space delimited CSS class names, e.g., `'class-a class-b class-c'`. These class names will be added to the dialog's body element.
 
 **Usage**:
 ```
 /% creates a link that opens a dialog box called 'Character Sheet' with the classes .char-sheet and .stats %/
 <<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' 'char-sheet stats'>>\
+	<<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
 		|Strength|$str|
 		|Dexterity|$dex|
 		|Wisdom|$wis|\
@@ -60,13 +61,13 @@ You can use this child tag to run code when the dialog is opened.
 **Usage**:
 ```
 <<link 'View Character Sheet'>>
-	<<dialog 'Character Sheet' 'char-sheet stats'>>\
+	<<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
 		|Strength|$str|
 		|Dexterity|$dex|
 		|Wisdom|$wis|\
 	<<onopen>>
 		<<audio 'click' volume 1 play>>
-	<</dialog>>
+	<</dialogelement>>
 <</link>>
 ```
 
@@ -77,7 +78,7 @@ You can use this child tag to run code when the dialog is closed.
 **Usage**:
 ```
 <<link 'View Character Sheet'>>
-	<<dialog 'Character Sheet' 'char-sheet stats'>>\
+	<<dialogelement 'Character Sheet' 'my-id' 'char-sheet stats'>>\
 		|Strength|$str|
 		|Dexterity|$dex|
 		|Wisdom|$wis|\
@@ -85,7 +86,7 @@ You can use this child tag to run code when the dialog is closed.
 		<<audio 'click' volume 1 play>>
 	<<onclose>>
 		<<audio 'close' volume 1 play>>
-	<</dialog>>
+	<</dialogelement>>
 <</link>>
 ```
 
@@ -99,7 +100,7 @@ Closes the topmost dialog.
 
 ```
 <<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' 'char-sheet stats'>>\
+	<<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
 		|Strength|$str|
 		|Dexterity|$dex|
 		|Wisdom|$wis|\
@@ -121,12 +122,12 @@ The `DialogElementMacro.open` function opens a dialog box. This function can be 
 
 Passing `content`, `onOpen`, and/or `onClose` as markup strings:
 ```js
-DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
+DialogElementMacro.open('Character Sheet', 'my-dialog-id', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
 Passing `content`, `onOpen`, and/or `onClose` as callback functions:
 ```js
-DialogElementMacro.open('Character Sheet', ['char-sheet', 'stats'],
+DialogElementMacro.open('Character Sheet', null, ['char-sheet', 'stats'],
   ($body) => {
     $body.append(`<span>CB Content</span>`);
     $body.append($(document.createElement('button'))
@@ -152,13 +153,21 @@ type MarkupString = string;
 type ContentCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
 type OnOpenCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
 type OnCloseCallback = () => void;
-export function open(
-  title: MarkupString,
-  classes: string[],
-  contentOrCallback: MarkupString | ContentCallback,
-  onOpen: MarkupString | OnOpenCallback = '',
-  onClose: MarkupString | OnCloseCallback = ''
-): void
+declare global {
+  interface Window {
+    DialogElementMacro: {
+      open(
+        title: MarkupString,
+        idOrNull: string | null,
+        classes: string[],
+        contentOrCallback: MarkupString | ContentCallback,
+        onOpen?: MarkupString | OnOpenCallback,
+        onClose?: MarkupString | OnCloseCallback
+      ): void;
+      close(): void;
+    };
+  }
+}
 ```
 
 It's not important to fully understand this syntax; the key take away is the last three parameters can be passed as markup strings or callback functions. Also, the last two parameters are optional.

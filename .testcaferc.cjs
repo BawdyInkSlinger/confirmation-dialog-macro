@@ -17,11 +17,17 @@ module.exports = {
     }
   ],
   "customActions": {
-    async expectContainsSubset(setPromise, subsetPromise) {
+    async expectSetContainsSubset(setPromise, subsetPromise) {
       const set = await setPromise;
       const subset = await subsetPromise;
-      await this.expect(subset.every((subsetElement) => set.includes(subsetElement)))
-        .ok(`${JSON.stringify(set)} did not contain every element of ${JSON.stringify(subset)}`);
+
+      if (typeof subset === 'string') {
+        await this.expect(set.includes(subset))
+          .ok(`${JSON.stringify(set)} did not contain every element of ${JSON.stringify(subset)}`);
+      } else { // assumed to be an array
+        await this.expect(subset.every((subsetElement) => set.includes(subsetElement)))
+          .ok(`${JSON.stringify(set)} did not contain every element of ${JSON.stringify(subset)}`);
+      }
     },
   }
 }

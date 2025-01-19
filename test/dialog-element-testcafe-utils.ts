@@ -13,6 +13,7 @@ type ExpectDialogElementContent = Partial<{
   bodyText: string;
   exactBodyText: string;
   customClassNames: string[];
+  customIdName: string,
   exists: boolean;
 }>;
 
@@ -20,6 +21,7 @@ export async function expectDialogElement({
   exactTitle,
   bodyText,
   exactBodyText,
+  customIdName,
   customClassNames,
   exists,
 }: ExpectDialogElementContent = {}): Promise<void> {
@@ -34,10 +36,18 @@ export async function expectDialogElement({
       (await t.expect(findDialogBodyText(customClassNames)).eql(exactBodyText));
 
     customClassNames !== undefined &&
-      (await t.customActions.expectContainsSubset(
+      (await t.customActions.expectSetContainsSubset(
         findDialogElementBodyClassNames(customClassNames),
         customClassNames
       ));
+
+    customIdName !== undefined && customIdName !== null &&
+      (await t.customActions.expectSetContainsSubset(
+        findDialogElementIdName(customIdName),
+        customIdName
+      )) &&
+      // the id value should not be in the class list
+      await t.expect(Selector(`.${customIdName}`).exists).notOk()
   } else {
     await t.expect(dialogElementBodySelector(customClassNames).exists).notOk();
   }
@@ -60,6 +70,12 @@ function findDialogElementBodyClassNames(
   return dialogElementBodySelector(customClassNames).classNames;
 }
 
+function findDialogElementIdName(
+  customIdName?: string
+): Promise<string> {
+  return dialogElementSelector(customIdName).id;
+}
+
 export function closeButton(customClassName: string): Selector {
   return dialogElementBodySelector([customClassName])
     .parent('dialog')
@@ -75,5 +91,11 @@ function dialogElementBodySelector(customClassNames?: string[]): Selector {
 
   return Selector(
     `.passage .macro-dialog-element ${classesInCssSelectorFormat}`
+  );
+}
+
+function dialogElementSelector(customIdName?: string): Selector {
+  return Selector(
+    `.passage dialog#${customIdName}`
   );
 }

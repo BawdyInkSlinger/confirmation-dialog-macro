@@ -18,6 +18,8 @@ test(`can create dialog element macros with various title and class name combina
         `can create dialog element macros with various title and class name combinations`
       )
     )
+
+  await t
     .click(Selector('.passage button').withText('Open dialog with no arguments'))
     .expect(dialogElementCount())
     .eql(1);
@@ -25,72 +27,82 @@ test(`can create dialog element macros with various title and class name combina
       exactTitle: '',
       customClassNames: [],
     });
-    
     await t.click(Selector('.passage button').withText('Test blank arguments'))
-    .click(Selector('.passage button').withText('Open dialog with blank arguments'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with blank arguments'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: '',
       customClassNames: [],
     });
-
     await t.click(Selector('.passage button').withText('Test blank title, one-class'))
-    .click(Selector('.passage button').withText('Open dialog with blank title, one-class'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with blank title, one-class'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: '',
       customClassNames: [],
     });
-
     await t.click(Selector('.passage button').withText('Test blank title, some classes'))
-    .click(Selector('.passage button').withText('Open dialog with blank title, some classes'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with blank title, some classes'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: '',
       customClassNames: [],
     });
-
     await t.click(Selector('.passage button').withText('Test title, no classes'))
-    .click(Selector('.passage button').withText('Open dialog with title, no classes'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with title, no classes'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: 'TITLE',
       customClassNames: [],
     });
-
     await t.click(Selector('.passage button').withText('Test title, blank classes'))
-    .click(Selector('.passage button').withText('Open dialog with title, blank classes'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with title, blank classes'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: 'TITLE',
       customClassNames: [],
     });
-
     await t.click(Selector('.passage button').withText('Test title, one-class'))
-    .click(Selector('.passage button').withText('Open dialog with title, one-class'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with title, one-class'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: 'TITLE',
       customClassNames: ['one-class'],
     });
-
     await t.click(Selector('.passage button').withText('Test title, more than one class'))
-    .click(Selector('.passage button').withText('Open dialog with title, more than one class'))
+
+  await t.click(Selector('.passage button').withText('Open dialog with title, more than one class'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({
       exactTitle: 'TITLE',
       customClassNames: ['more', 'than', 'one', 'class'],
     });
+    await t.click(Selector('.passage button').withText('Test title, some classes, id'))
 
+  await t.click(Selector('.passage button').withText('Open dialog with title, some classes, id'))
+    .expect(dialogElementCount())
+    .eql(1);
+    await expectDialogElement({
+      exactTitle: 'TITLE',
+      customClassNames: ['some', 'classes'],
+      customIdName: 'an-id'
+    });
     await t.click(Selector('.passage button').withText('Test title, some classes, blank body'))
-    .click(Selector('.passage button').withText('Open dialog with title, some classes, blank body'))
+    
+  await t.click(Selector('.passage button').withText('Open dialog with title, some classes, blank body'))
     .expect(dialogElementCount())
     .eql(1);
     await expectDialogElement({

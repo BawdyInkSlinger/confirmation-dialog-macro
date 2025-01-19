@@ -1,7 +1,7 @@
 {
   "name": "dialog-element-macro",
   "productName": "dialog-element-macro",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/dialog-element-macro.js",
   "types": "src/dialog-element-macro.d.ts",
   "scripts": {

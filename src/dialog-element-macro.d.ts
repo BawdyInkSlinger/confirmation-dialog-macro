@@ -9,6 +9,7 @@ declare global {
     DialogElementMacro: {
       open(
         title: MarkupString,
+        idOrNull: string | null,
         classes: string[],
         contentOrCallback: MarkupString | ContentCallback,
         onOpen?: MarkupString | OnOpenCallback,

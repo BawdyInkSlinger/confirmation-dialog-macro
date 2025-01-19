@@ -3,15 +3,16 @@
 <<button "Open a dialog by passing content as string">>
   <<script>> 
     DialogElementMacro.open(
-      `Content as string`, 
-      [], 
+      `Content as string`,
+      'my-id',
+      [],
       `<span>S Content</span><<button "Cancel">><<run DialogElementMacro.close()>><</button>>`)
   <</script>> 
 <</button>>
 
 <<button "Open a dialog by passing callbacks">>
   <<script>> 
-    DialogElementMacro.open(`Callbacks`, [], 
+    DialogElementMacro.open(`Callbacks`, null, [], 
       ($body) => {
         $body.append(`<span>CB Content</span>`);
         $body.append($(document.createElement('button'))

@@ -11,7 +11,7 @@
 :: Sugarcube Dialog Body
 <<button "Open simple dialog over Dialog API">>
     <<set $dialog_number to $dialog_number + 1>>
-    <<dialogelement "On top of sugarcube" `"dialog-number-" + $dialog_number`>>
+    <<dialogelement "On top of sugarcube" null `"dialog-number-" + $dialog_number`>>
         <span>My content</span>
     <</dialogelement>>
 <</button>>

@@ -5,6 +5,7 @@ Macro.add('dialogelement', {
   tags: ['onopen', 'onclose'],
   handler: function () {
     const title = DialogElementArgumentParser.getTitle.call(this);
+    const id = DialogElementArgumentParser.getId.call(this);
     const classes = DialogElementArgumentParser.getClasses.call(this);
     const content = DialogElementArgumentParser.getContent.call(this);
     const onOpen = DialogElementArgumentParser.joinTagContents.call(
@@ -16,7 +17,7 @@ Macro.add('dialogelement', {
       'onclose'
     );
 
-    open(title, classes, content, onOpen, onClose);
+    open(title, id, classes, content, onOpen, onClose);
   },
 });
 
@@ -26,12 +27,14 @@ type OnOpenCallback = ($dialogElementBody: JQuery<HTMLElement>) => void;
 type OnCloseCallback = () => void;
 export function open(
   title: MarkupString,
+  id : string | null,
   classes: string[],
   contentOrCallback: MarkupString | ContentCallback,
   onOpen: MarkupString | OnOpenCallback = '',
-  onClose: MarkupString | OnCloseCallback = ''
+  onClose: MarkupString | OnCloseCallback = '',
 ): void {
   const $dialog = $(document.createElement('dialog'))
+    .attr('id', id)
     .addClass(`macro-dialog-element`)
     .css({ padding: '0' /* https://stackoverflow.com/a/72916231/61624 */ })
     .on('click', function (event) {

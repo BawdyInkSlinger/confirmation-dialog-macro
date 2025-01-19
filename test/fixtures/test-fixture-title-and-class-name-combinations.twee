@@ -18,14 +18,14 @@
 
 :: Test blank title, one-class
 <<button "Open dialog with blank title, one-class">>
-    <<dialogelement '  ' 'one-class'>>
+    <<dialogelement '  ' null 'one-class'>>
         <<button "Test blank title, some classes" "Test blank title, some classes">><</button>>
     <</dialogelement>>
 <</button>>
 
 :: Test blank title, some classes
 <<button "Open dialog with blank title, some classes">>
-    <<dialogelement '' 'some classes'>>
+    <<dialogelement '' null 'some classes'>>
         <<button "Test title, no classes" "Test title, no classes">><</button>>
     <</dialogelement>>
 <</button>>
@@ -39,26 +39,33 @@
 
 :: Test title, blank classes
 <<button "Open dialog with title, blank classes">>
-    <<dialogelement 'title' ' '>>
+    <<dialogelement 'title' null ' '>>
         <<button "Test title, one-class" "Test title, one-class">><</button>>
     <</dialogelement>>
 <</button>>
 
 :: Test title, one-class
 <<button "Open dialog with title, one-class">>
-    <<dialogelement 'title' 'one-class'>>
+    <<dialogelement 'title' null 'one-class'>>
         <<button "Test title, more than one class" "Test title, more than one class">><</button>>
     <</dialogelement>>
 <</button>>
 
 :: Test title, more than one class
 <<button "Open dialog with title, more than one class">>
-    <<dialogelement 'title' 'more than one class'>>
+    <<dialogelement 'title' null 'more than one class'>>
+        <<button "Test title, some classes, id" "Test title, some classes, id">><</button>>
+    <</dialogelement>>
+<</button>>
+
+:: Test title, some classes, id
+<<button "Open dialog with title, some classes, id">>
+    <<dialogelement 'title' 'an-id' 'some classes'>>
         <<button "Test title, some classes, blank body" "Test title, some classes, blank body">><</button>>
     <</dialogelement>>
 <</button>>
 
 :: Test title, some classes, blank body
 <<button "Open dialog with title, some classes, blank body">>
-    <<dialogelement 'title' 'some classes'>><</dialogelement>>
+    <<dialogelement 'title' null 'some classes'>><</dialogelement>>
 <</button>>

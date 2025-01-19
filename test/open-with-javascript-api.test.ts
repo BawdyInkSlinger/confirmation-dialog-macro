@@ -25,6 +25,7 @@ test(`can open with javascript api`, async (t: TestController): Promise<void> =>
   await expectDialogElement({
     exactTitle: 'CONTENT AS STRING',
     bodyText: 'S Content',
+    customIdName: 'my-id'
   });
   await t
     .click(Selector('.passage button').withText('Cancel'))
