@@ -120,12 +120,14 @@ The `DialogElementMacro.open` function opens a dialog box. This function can be 
 
 **Usage**:
 
-Passing `content`, `onOpen`, and/or `onClose` as markup strings:
+#### Passing `content`, `onOpen`, and/or `onClose` as markup strings:
 ```js
 DialogElementMacro.open('Character Sheet', 'my-dialog-id', ['char-sheet', 'stats'], `\\\n|Strength|$str|\n|Dexterity|$dex|\n|Wisdom|$wis|\\\n`, '<<run console.log("onOpen")>>', '<<run console.log("onClose")>>');
 ```
 
-Passing `content`, `onOpen`, and/or `onClose` as callback functions:
+Each markup string is parsed by the [`$.wiki()` function](http://www.motoslave.net/sugarcube/2/docs/#methods-jquery-method-wiki).
+
+#### Passing `content`, `onOpen`, and/or `onClose` as callback functions:
 ```js
 DialogElementMacro.open('Character Sheet', null, ['char-sheet', 'stats'],
   ($body) => {
@@ -143,6 +145,8 @@ DialogElementMacro.open('Character Sheet', null, ['char-sheet', 'stats'],
       $(`#event-log`).append(`<p>Closed</p>`)
     });
 ```
+
+You can mix-and-match these choices. For example, you could use a markup string for content and use callbacks for the `onOpen` and `onClose` parameters.
 
 **Formal Syntax**:
 
