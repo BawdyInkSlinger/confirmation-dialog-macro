@@ -34,23 +34,23 @@ The `<<dialogelement>>` macro creates a new dialog box with an optional title an
 ```
 /% creates a link that opens a dialog box called 'Character Sheet' with the classes .char-sheet and .stats %/
 <<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
-		|Strength|$str|
-		|Dexterity|$dex|
-		|Wisdom|$wis|\
-	<</dialogelement>>
+  <<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
+    |Strength|$str|
+    |Dexterity|$dex|
+    |Wisdom|$wis|\
+  <</dialogelement>>
 <</link>>
 
 /% create an about button for your credits %/
 <<button 'About'>>
-	<<dialogelement 'Credits'>>\
-		This game was made by John P. Nottingham in Twine!\
-	<</dialogelement>>
+  <<dialogelement 'Credits'>>\
+    This game was made by John P. Nottingham in Twine!\
+  <</dialogelement>>
 <</button>>
 
 /% a dialog with no title or classes %/
 <<link 'Hello!'>>
-	<<dialogelement>>Greetings!<</dialogelement>>
+  <<dialogelement>>Greetings!<</dialogelement>>
 <</link>>
 ```
 
@@ -61,13 +61,13 @@ You can use this child tag to run code when the dialog is opened.
 **Usage**:
 ```
 <<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
-		|Strength|$str|
-		|Dexterity|$dex|
-		|Wisdom|$wis|\
-	<<onopen>>
-		<<audio 'click' volume 1 play>>
-	<</dialogelement>>
+  <<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
+    |Strength|$str|
+    |Dexterity|$dex|
+    |Wisdom|$wis|\
+  <<onopen>>
+    <<audio 'click' volume 1 play>>
+  <</dialogelement>>
 <</link>>
 ```
 
@@ -78,15 +78,15 @@ You can use this child tag to run code when the dialog is closed.
 **Usage**:
 ```
 <<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' 'my-id' 'char-sheet stats'>>\
-		|Strength|$str|
-		|Dexterity|$dex|
-		|Wisdom|$wis|\
-	<<onopen>>
-		<<audio 'click' volume 1 play>>
-	<<onclose>>
-		<<audio 'close' volume 1 play>>
-	<</dialogelement>>
+  <<dialogelement 'Character Sheet' 'my-id' 'char-sheet stats'>>\
+    |Strength|$str|
+    |Dexterity|$dex|
+    |Wisdom|$wis|\
+  <<onopen>>
+    <<audio 'click' volume 1 play>>
+  <<onclose>>
+    <<audio 'close' volume 1 play>>
+  <</dialogelement>>
 <</link>>
 ```
 
@@ -100,15 +100,42 @@ Closes the topmost dialog.
 
 ```
 <<link 'View Character Sheet'>>
-	<<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
-		|Strength|$str|
-		|Dexterity|$dex|
-		|Wisdom|$wis|\
-	@@float:right;
-		<<button "Close">><<dialogelementclose>><</button>>
-    @@
-	<</dialogelement>>
+  <<dialogelement 'Character Sheet' null 'char-sheet stats'>>\
+    |Strength|$str|
+    |Dexterity|$dex|
+    |Wisdom|$wis|\
+  @@float:right;
+    <<button "Close">><<dialogelementclose>><</button>>
+  @@
+  <</dialogelement>>
 <</link>>
+```
+
+# HTML Reference
+
+This section shows what HTML is generated from a simple `<<dialogelement>>` example.
+
+### Example Code
+
+```
+<<nobr>>
+  <<dialogelement 'Example Title' 'example-id' 'class1 class2 class3'>>
+    Content
+    <br><br>
+  <<button "Close">><<dialogelementclose>><</button>>
+  <</dialogelement>>
+<</nobr>>
+```
+
+### Example's HTML
+
+```
+<dialog id="example-id" class="macro-dialog-element" open="" style="padding: 0px;">
+    <div class="dialog-element-titlebar">
+        <h1 class="dialog-element-title">Example Title</h1><button class="dialog-element-close" type="button" role="button" tabindex="0"></button>
+    </div>
+    <div class="class1 class2 class3 dialog-element-body"> Content <br><br> <button class="link-internal macro-button" type="button" role="button" tabindex="0">Close</button> </div>
+</dialog>
 ```
 
 # JavaScript

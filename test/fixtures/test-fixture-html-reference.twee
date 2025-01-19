@@ -1,0 +1,19 @@
+:: Test HTML reference is synced with README.md
+<h1>Test HTML reference is synced with README.md</h1>
+
+<div id="wiki-text">
+  <<- Story.get(`HTML reference snippet`).text>>
+</div>
+
+<<button "Open Dialog">>
+  <<include "HTML reference snippet">>
+<</button>>
+
+:: HTML reference snippet
+<<nobr>>
+  <<dialogelement 'Example Title' 'example-id' 'class1 class2 class3'>>
+    Content
+    <br><br>
+    <<button "Close">><<dialogelementclose>><</button>>
+  <</dialogelement>>
+<</nobr>>

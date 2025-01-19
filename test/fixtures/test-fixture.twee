@@ -28,3 +28,5 @@ Config.passages.nobr = true;
 <<button "Test can open on top of official Sugarcube Dialog UI" "Test can open on top of official Sugarcube Dialog UI">><</button>><br><br>
 
 <<button "Test can open with javascript api" "Test can open with javascript api">><</button>><br><br>
+
+<<button "Test HTML reference is synced with README.md" "Test HTML reference is synced with README.md">><</button>><br><br>
